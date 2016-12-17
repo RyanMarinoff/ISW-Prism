@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "My First Post!"
-date:   2016-12-17 00:28:58 -0500
+title:  "First Blog Post!"
+date:   2016-12-16 00:28:58 -0500
 categories: blog update first
 ---
 
