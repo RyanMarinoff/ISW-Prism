@@ -25,7 +25,7 @@ github_username:  RyanMarinoff
 repository: RyanMarinoff/ISW-Prism.github.io
 # Build settings
 markdown: kramdown
-theme: minima
+theme: jekyll-theme-midnight
 gems:
   - jekyll-feed
 exclude:
