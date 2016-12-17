@@ -13,7 +13,8 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: RyanMarinoff ISW-Prism Site
+title: RyanMarinoff | ISW-Prism Blog
+author: Ryan Marinoff
 email: ryan.marinoff@outlook.com
 description: > # this means to ignore newlines until "baseurl:"
   Within this site I will describe the process I used to create the ISW-Prism application
