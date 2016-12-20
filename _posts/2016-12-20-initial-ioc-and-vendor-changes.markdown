@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Base Model Structure
+title: Initial IoC and Vendor Changes
 date: 2016-12-20 13:30:00 -0500
 categories: blog update code mvvm ioc
 ---
