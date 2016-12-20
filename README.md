@@ -1,4 +1,7 @@
 # ISW-Prism
-This will be my prism implementation of the Internet Sales Work application.
+This will be my prism implementation of the Internet Sales Work application. See the Wiki for technical information.
 
-I have done some research on how to implement what I wish to do here. I am still up in the air on exactly how I will be implementing this application. Initially I wanted to use Prism, but now I am not sure. I have done very little at this time to create anything worthwhile...
+The application will be developed using the recent version of Visual Studio Community Edition. The project is for me, to make my job easier to do when I wish to maintain data within the internet database. The final outcome of the project is to setup a 'slick' user interface that would be easily used and pleasing to the eye.
+
+## Compile Code
+To use ISW-Prism, download the code and open the solution within Visual Studio 2015 or later. Compile and run. Currently there is no working UI for the application.
