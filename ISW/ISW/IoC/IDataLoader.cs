@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 using ISW.Model;
@@ -11,11 +8,209 @@ namespace ISW.IoC
 {
     static class IDataLoader
     {
-        const string _vendorFile = "N:\\Small Programs\\Exports\\Vendors.csv";
-
-        public static void LoadVendors(ref List<Vendor> vendors)
+        public static void LoadOptions(string optionFile, ref List<Option> options)
         {
-            List<Dictionary<string, string>> theList = ProcessCSV(_vendorFile);
+            List<Dictionary<string, string>> theList = ProcessCSV(optionFile);
+
+            Option optionItem;
+            foreach(var item in theList)
+            {
+                int id = -1; // error check, all id's must be positive
+                string value;
+                if(item.TryGetValue("id", out value))
+                {
+                    int n;
+                    if (int.TryParse(value, out n))
+
+                        id = n;
+                }
+                if(id != -1)
+                {
+                    optionItem = new Option(id);
+                    if(item.TryGetValue("optioncatid", out value))
+                    {
+                        int n;
+                        if (int.TryParse(value, out n))
+                            optionItem.CatID = n;
+                    }
+                    if(item.TryGetValue("optionsdesc", out value))
+                    {
+                        optionItem.Description = value;
+                    }
+                    if(item.TryGetValue("arrangeoptionsby", out value))
+                    {
+                        int n;
+                        if (int.TryParse(value, out n))
+                            optionItem.ArrangeOptionsBy = n;
+                    }
+                    var optionIndex = options.FindIndex(x => x.ID == optionItem.ID);
+                    if (optionIndex == -1)
+                        options.Add(optionItem);
+                    else
+                        options[optionIndex] = optionItem;
+                }
+            }
+        }
+
+        public static void LoadCategories(string categoryFile, ref List<Category> categories)
+        {
+            List<Dictionary<string, string>> theList = ProcessCSV(categoryFile);
+            Dictionary<Category, int> CategoryWithParent = new Dictionary<Category, int>();
+            Category categoryItem;
+            foreach (var item in theList)
+            {
+                int id = -1;//error check, all id's must be positive
+                string value;
+                if (item.TryGetValue("categoryid", out value))
+                {
+                    int n;
+                    if (int.TryParse(value, out n))
+                        id = n;
+                }
+                if (id != -1)
+                {
+                    categoryItem = new Category(id);
+                    if (item.TryGetValue("categoryname", out value))
+                    {
+                        categoryItem.Name = value;
+                    }
+                    if (item.TryGetValue("parentid", out value))
+                    {
+                        if (value != "")
+                        {
+                            int n;
+                            if (int.TryParse(value, out n))
+                                CategoryWithParent.Add(categoryItem, n);
+                        }
+                    }
+                    if (item.TryGetValue("categoryorder", out value))
+                    {
+                        int n;
+                        if (int.TryParse(value, out n))
+                            categoryItem.DisplayOrder = n;
+                    }
+                    if (item.TryGetValue("categoryvisibile", out value))
+                    {
+                        if (value != "")
+                            categoryItem.Visibility = value.Equals("Y");
+                    }
+                    if (item.TryGetValue("alternateurl", out value))
+                    {
+                        categoryItem.AlternateURL = value;
+                    }
+                    if (item.TryGetValue("subcategory_displaymode1", out value))
+                    {
+                        categoryItem.SubCategoryDisplayMode = value;
+                    }
+                    if (item.TryGetValue("display_rows", out value))
+                    {
+                        int n;
+                        if (int.TryParse(value, out n))
+                            categoryItem.DisplayRows = n;
+                    }
+                    if (item.TryGetValue("display_showlistprice", out value))
+                    {
+                        if (value != "")
+                            categoryItem.DisplayListPrice = value.Equals("Y");
+                    }
+                    if (item.TryGetValue("display_showyousave", out value))
+                    {
+                        if (value != "")
+                            categoryItem.DisplayYouSave = value.Equals("Y");
+                    }
+                    if (item.TryGetValue("display_showdescriptionshort", out value))
+                    {
+                        if (value != "")
+                            categoryItem.DisplayDescriptionShort = value.Equals("Y");
+                    }
+                    if (item.TryGetValue("display_showavailability", out value))
+                    {
+                        if (value != "")
+                            categoryItem.DisplayAvailablility = value.Equals("Y");
+                    }
+                    if (item.TryGetValue("display_featuredproductsonly", out value))
+                    {
+                        if (value != "")
+                            categoryItem.DisplayFeaturedProductsOnly = value.Equals("Y");
+                    }
+                    if (item.TryGetValue("metatag_title", out value))
+                    {
+                        categoryItem.MetaTagTitle = value;
+                    }
+                    if (item.TryGetValue("metatag_description", out value))
+                    {
+                        categoryItem.MetaTagDescription = value;
+                    }
+                    if (item.TryGetValue("default_sortby", out value))
+                    {
+                        categoryItem.DefaultSortBy = value;
+                    }
+                    if (item.TryGetValue("link_title_tag", out value))
+                    {
+                        categoryItem.LinkTitleTag = value;
+                    }
+                    if (item.TryGetValue("category_graphic_placement", out value))
+                    {
+                        categoryItem.GraphicPlacement = value;
+                    }
+                    if (item.TryGetValue("filtercategory", out value))
+                    {
+                        if (value != "")
+                            categoryItem.FilterCategory = value.Equals("Y");
+                    }
+                    if (item.TryGetValue("categorydescriptionshort", out value))
+                    {
+                        categoryItem.DescriptionShort = value;
+                    }
+                    if (item.TryGetValue("categorydescription", out value))
+                    {
+                        categoryItem.Description = value;
+                    }
+                    if (item.TryGetValue("metatag_keywords", out value))
+                    {
+                        categoryItem.MetaTagKeywords = value;
+                    }
+                    if (item.TryGetValue("categorydescription_belowproducts", out value))
+                    {
+                        categoryItem.DescriptionBelowProducts = value;
+                    }
+                    if (item.TryGetValue("custom_where_clause", out value))
+                    {
+                        categoryItem.CustomWhereClause = value;
+                    }
+                    if (item.TryGetValue("hidden", out value))
+                    {
+                        if (value != "")
+                            categoryItem.Hidden = value.Equals("Y");
+                    }
+                    if(item.TryGetValue("subcategory_displaycolumns_responsive", out value))
+                    {
+                        if(value != "")
+                        {
+                            int n;
+                            if (int.TryParse(value, out n))
+                                categoryItem.SubCategoryDisplayColums = n;
+                        }
+                    }
+
+                    var categoryIndex = categories.FindIndex(x => x.ID == categoryItem.ID);
+                    if (categoryIndex == -1)
+                        categories.Add(categoryItem);
+                    else
+                        categories[categoryIndex] = categoryItem;
+                }
+            }
+            foreach(var item in CategoryWithParent)
+            {
+                var index = categories.FindIndex(x => x.ID == item.Value);
+                if(index != -1)
+                    item.Key.Parent = categories[index];
+            }
+        }
+        
+        public static void LoadVendors(string vendorFile, ref List<Vendor> vendors)
+        {
+            List<Dictionary<string, string>> theList = ProcessCSV(vendorFile);
 
             Vendor vendorItem;
             foreach(var item in theList)
@@ -24,13 +219,27 @@ namespace ISW.IoC
                 string value;
                 if(item.TryGetValue("vendor_id", out value))
                 {
-                    value = value.Replace("\"", "");
                     int n;
-                    if (int.TryParse(value, out n)) id = n;
+                    if (int.TryParse(value, out n))
+                        id = n;
                 }
                 if(id!= -1)
                 {
                     vendorItem = new Vendor(id);
+                    if(item.TryGetValue("vendor_title", out value))
+                    {
+                        vendorItem.Title = value;
+                    }
+                    if(item.TryGetValue("vendor_po_template", out value))
+                    {
+                        vendorItem.PoTemplate = value;
+                    }
+
+                    var vendorIndex = vendors.FindIndex(x => x.ID == vendorItem.ID);
+                    if (vendorIndex == -1)
+                        vendors.Add(vendorItem);
+                    else
+                        vendors[vendorIndex] = vendorItem;
                 }
             }
         }
@@ -40,7 +249,8 @@ namespace ISW.IoC
             Dictionary<string, string> item;
             List<Dictionary<string, string>> items = new List<Dictionary<string, string>>();
 
-            if(fileLocation == "") return items;
+            if(fileLocation == "")
+                return items;
 
             var streamReader = new StreamReader(fileLocation);
             var header = streamReader.ReadLine();
@@ -68,7 +278,8 @@ namespace ISW.IoC
                             newArray[i] = newArray[i] + ',' + newArray[i + 1];
                             newArray.RemoveAt(i + 1);
                             length--;
-                            if (i != length) consolidateString = false;
+                            if (i != length)
+                                consolidateString = false;
                         }
                     }
 
@@ -92,6 +303,8 @@ namespace ISW.IoC
                 {
                     for(int i = 0; i < values.Length; i++)
                     {
+                        if (values[i].StartsWith("\"") && values[i].EndsWith("\""))
+                            values[i].Trim('\"');
                         item.Add(headings[i], values[i]);
                     }
                 }

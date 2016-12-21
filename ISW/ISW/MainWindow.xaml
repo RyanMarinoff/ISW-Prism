@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="{DynamicResource AppTitle}" Height="350" Width="525" Icon="{DynamicResource AppIcon}">
     <Grid>
-        
+        <Button x:Name="_btnTestOption" Content="Test Option" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="103" Click="_btnTestOption_Click"/>
+        <Button x:Name="_btnTestCategory" Content="Test Category" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="103" Click="_btnTestCategory_Click"/>
+        <Button x:Name="_btnTestVendor" Content="Test Vendor" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="103" Click="_btnTestVendor_Click"/>
+        <Button x:Name="_btnTestProduct" Content="Test Product" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="103" Click="_btnTestProduct_Click"/>
+
     </Grid>
 </Window>
