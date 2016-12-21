@@ -1,7 +1,7 @@
 ---
 layout: post
 title: IDataLoader Initialized
-date: 2016-12-20 13:30:00 -0500
+date: 2016-12-21 15:51:00 -0500
 categories: blog update code mvvm ioc idataloader
 ---
 # Set all accessors for all data fields within class models
