@@ -1,3 +1,0 @@
-# Testing Readme
-
-I wanted to find out if GitHub recognizes the ReadMe.md files within subdirectories and displays them just like the repository root...
