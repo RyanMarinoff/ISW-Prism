@@ -17,6 +17,12 @@ namespace ISW
             InitializeComponent();
         }
 
+        #region Testing Code
+        /************************************************/
+        /* Nearly everything within this section will   */
+        /* not be implemented into the final code. This */
+        /* will be removed after testing is completed.  */
+        /* **********************************************/
         private void _btnTestProduct_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Sorry, not ready yet.");
@@ -34,11 +40,15 @@ namespace ISW
 
         private void _btnTestOption_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Make sure to choose both Option Categories and Options.");
             string _ext = ".csv";
-            string _filter = "CSV Based Option File|*.csv";
+            string _filter = "CSV Based OptionCategory File|*.csv";
             string _file = getFileName(_ext, _filter);
+            List<OptionCategory> _optCat = new List<OptionCategory>();
+            IDataLoader.LoadOptionCategories(_file, ref _optCat);
+            _filter = _filter.Replace("OptionCategory", "Option");
             List<Option> _options = new List<Option>();
-            IDataLoader.LoadOptions(_file, ref _options);
+            IDataLoader.LoadOptions(_file, ref _options, ref _optCat);
             MessageBox.Show(_options.Count() + " options loaded.");
         }
 
@@ -68,5 +78,6 @@ namespace ISW
             }
             return fileName;
         }
+        #endregion
     }
 }

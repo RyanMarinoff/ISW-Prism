@@ -7,10 +7,10 @@
             _id = id;
         }
 
-        private int _id;                //Option ID
-        private int? _catID;            //Option Category ID
-        private string _description;    //Option Description
-        private int? _arrangeOptionsBy; //Display Order
+        private int _id;                        //Option ID
+        private OptionCategory _optionCategory; //Option Category ID
+        private string _description;            //Option Description
+        private int? _arrangeOptionsBy;         //Display Order
 
         public int ID
         {
@@ -19,11 +19,11 @@
                 return _id;
             }
         }
-
-        public int? CatID
+        // Option Category ID
+        public OptionCategory Category
         {
-            get { return _catID; }
-            set { _catID = value; }
+            get { return _optionCategory; }
+            set { _optionCategory = value; }
         }
 
         public string Description
