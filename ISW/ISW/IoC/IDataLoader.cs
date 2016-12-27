@@ -3,6 +3,7 @@ using System.Linq;
 using System.IO;
 
 using ISW.Model;
+using System;
 
 namespace ISW.IoC
 {
@@ -48,11 +49,6 @@ namespace ISW.IoC
             }
         }
 
-        /// <summary>
-        /// Loads the Options data into the the options list.
-        /// </summary>
-        /// <param name="optionFile">File location of the csv data file.</param>
-        /// <param name="options">List of Option objects that will be processed and changed.</param>
         public static void LoadOptions(string optionFile, ref List<Option> options, ref List<OptionCategory> OptionCategories)
         {
             // The raw data from the CSV file
@@ -234,48 +230,61 @@ namespace ISW.IoC
                             categoryItem.DisplayRows = n;
                     }
 
-                    // Display “List Price” [bool] display_showlistprice
+                    // Display "List Price" [bool] display_showlistprice
                     if (item.TryGetValue("display_showlistprice", out value))
                     {
                         if (value != "")
                             categoryItem.DisplayListPrice = value.Equals("Y");
                     }
 
-                    // Display “You Save” [bool] display_showyousave
+                    // Display "You Save" [bool] display_showyousave
                     if (item.TryGetValue("display_showyousave", out value))
                     {
                         if (value != "")
                             categoryItem.DisplayYouSave = value.Equals("Y");
                     }
 
+                    // Display "Description Short" [bool] DisplayDescriptionShort
                     if (item.TryGetValue("display_showdescriptionshort", out value))
                     {
                         if (value != "")
                             categoryItem.DisplayDescriptionShort = value.Equals("Y");
                     }
+
+                    // Display "Availability" [bool] DisplayAvailablility
                     if (item.TryGetValue("display_showavailability", out value))
                     {
                         if (value != "")
                             categoryItem.DisplayAvailablility = value.Equals("Y");
                     }
+
+                    // Display the featured products only [bool] DisplayFeaturedProductsOnly
                     if (item.TryGetValue("display_featuredproductsonly", out value))
                     {
                         if (value != "")
                             categoryItem.DisplayFeaturedProductsOnly = value.Equals("Y");
                     }
+
+                    // ?? Default sort by [string] DefaultSortBy
                     if (item.TryGetValue("default_sortby", out value))
                     {
                         categoryItem.DefaultSortBy = value;
                     }
+
+                    // Category URL Text [string] LinkTitleTag
                     if (item.TryGetValue("link_title_tag", out value))
                     {
                         categoryItem.LinkTitleTag = value;
                     }
+
+                    // Graphic Placement [string] GraphicPlacement
                     if (item.TryGetValue("category_graphic_placement", out value))
                     {
                         categoryItem.GraphicPlacement = value;
                     }
-                    if(item.TryGetValue("subcategory_displaycolumns_responsive", out value))
+
+                    // Number of subcategory display columns [string] SubCategoryDisplayColums
+                    if (item.TryGetValue("subcategory_displaycolumns_responsive", out value))
                     {
                         if(value != "")
                         {
@@ -284,7 +293,8 @@ namespace ISW.IoC
                                 categoryItem.SubCategoryDisplayColums = n;
                         }
                     }
-                    // 
+
+                    // SubCategory Display Mode [int] SubCategoryDisplayMode
                     if (item.TryGetValue("subcategory_displaymode1", out value))
                     {
                         categoryItem.SubCategoryDisplayMode = value;
@@ -324,14 +334,18 @@ namespace ISW.IoC
         
         public static void LoadVendors(string vendorFile, ref List<Vendor> vendors)
         {
+            // The raw data from the CSV file
             List<Dictionary<string, string>> theList = ProcessCSV(vendorFile);
-
             Vendor vendorItem;
+
+            // process the list
             foreach(var item in theList)
             {
                 int id = -1; // error check, all id's must be positive
                 string value;
-                if(item.TryGetValue("vendor_id", out value))
+
+                // Vendor ID [int] ID
+                if (item.TryGetValue("vendor_id", out value))
                 {
                     int n;
                     if (int.TryParse(value, out n))
@@ -340,20 +354,190 @@ namespace ISW.IoC
                 if(id!= -1)
                 {
                     vendorItem = new Vendor(id);
-                    if(item.TryGetValue("vendor_title", out value))
+
+                    // Name of Vendor [string] Title
+                    if (item.TryGetValue("vendor_title", out value))
                     {
                         vendorItem.Title = value;
                     }
-                    if(item.TryGetValue("vendor_po_template", out value))
+
+                    // PO Template [string] PoTemplate
+                    if (item.TryGetValue("vendor_po_template", out value))
                     {
                         vendorItem.PoTemplate = value;
                     }
 
+                    // each item must be unique
                     var vendorIndex = vendors.FindIndex(x => x.ID == vendorItem.ID);
                     if (vendorIndex == -1)
                         vendors.Add(vendorItem);
                     else
                         vendors[vendorIndex] = vendorItem;
+                }
+            }
+        }
+
+        public static void LoadProducts(string productFile, ref List<ParentProduct> products, ref List<Category> categories, ref List<Option> options, ref List<Vendor> vendors)
+        {
+            // The raw data from the CSV file
+            List<Dictionary<string, string>> theList = ProcessCSV(productFile);
+            ParentProduct productItem;
+
+            // process the list
+            foreach(var item in theList)
+            {
+                string id = "";
+                string value;
+
+                // Product Code [string] productcode
+                if(item.TryGetValue("productcode", out value))
+                {
+                    id = value;
+                }
+                if(id != "")
+                {
+                    productItem = new ParentProduct(value);
+
+                    // List of Category IDs assigned to the shoe [List<Category>] categoryids
+                    if(item.TryGetValue("categoryids", out value))
+                    {
+                        var catids = value.Split(',');
+                        List<Category> itemCategories = new List<Category>();
+                        foreach(var catid in catids)
+                        {
+                            int cid;
+                            if(int.TryParse(catid, out cid))
+                            {
+                                var cat = categories.Find(x => x.ID == cid);
+                                if(cat != null)
+                                    itemCategories.Add(cat);
+                            }
+                        }
+                        productItem.Categories = itemCategories;
+                    }
+                    
+                    // List of Option IDs assigned to the shoe [List<Option>] optionids
+                    if(item.TryGetValue("optionids", out value))
+                    {
+                        var optids = value.Split(',');
+                        List<Option> itemOptions = new List<Option>();
+                        foreach(var optid in optids)
+                        {
+                            int oid;
+                            if(int.TryParse(optid, out oid))
+                            {
+                                var opt = options.Find(x => x.ID == oid);
+                                if (opt != null)
+                                    itemOptions.Add(opt);
+                            }
+                        }
+                        productItem.Options = itemOptions;
+                    }
+
+                    // Product Name [string] productname
+                    if(item.TryGetValue("productname", out value))
+                    {
+                        productItem.Name = value;
+                    }
+
+                    // Date product first displayed [DateTime] displaybegindate
+                    if(item.TryGetValue("displaybegindate", out value))
+                    {
+                        DateTime beginDate;
+                        if(DateTime.TryParse(value, out beginDate))
+                            productItem.DisplayBeginDate = beginDate;
+                    }
+
+                    // Is the product taxable [bool] taxableproduct
+                    if (item.TryGetValue("taxableproduct", out value))
+                    {
+                        if (value != "")
+                            productItem.Taxable = value.Equals("Y");
+                    }
+
+                    // Is the product hidden [bool] hideproduct
+                    if(item.TryGetValue("hideproduct", out value))
+                    {
+                        if (value != "")
+                            productItem.Hidden = value.Equals("Y");
+                    }
+
+                    // Shortened version of the product name [string] productnameshort
+                    if(item.TryGetValue("productnameshort", out value))
+                    {
+                        productItem.ShortName = value;
+                    }
+
+                    // Short statement of product (mens / womens / accessories) [string] productdescriptionshort
+                    if(item.TryGetValue("productdescriptionshort", out value))
+                    {
+                        productItem.ShortDescription = value;
+                    }
+
+                    // SEO Title [string] metatag_title
+                    if(item.TryGetValue("metatag_title", out value))
+                    {
+                        productItem.MetaTagTitle = value;
+                    }
+
+                    // SEO Description [string] metatag_description
+                    if(item.TryGetValue("metatag_description", out value))
+                    {
+                        productItem.MetaTagDescription = value;
+                    }
+
+                    // SEO Photo alternative text [string] photo_alttext
+                    if(item.TryGetValue("photo_alttext", out value))
+                    {
+                        productItem.PhotoAltText = value;
+                    }
+
+                    // Is the product designated as a sale product [string] customfield1
+                    if(item.TryGetValue("customfield1", out value))
+                    {
+                        productItem.SaleText = value;
+                    }
+
+                    // Manufacturer of the product [Vendor] productmanufacturer
+                    if(item.TryGetValue("productmanufacturer", out value))
+                    {
+                        int vid;
+                        if(int.TryParse(value, out vid))
+                        {
+                            if(vid != -1)
+                            {
+                                productItem.ItemVendor = vendors.Find(x => x.ID == vid);
+                            }
+                        }
+                    }
+
+                    // Price of product [float] ProductPrice productprice
+                    if(item.TryGetValue("productprice", out value))
+                    {
+                        float price;
+                        if(float.TryParse(value, out price))
+                        {
+                            if(price != -1)
+                            {
+                                productItem.ProductPrice = price;
+                            }
+                        }
+                    }
+
+                    // Determine if this item is a parent or a child product
+
+                    // List of Child Products assigned to the shoe [List] ChildProducts ischildofproductcode
+                    if (item.TryGetValue("ischildofproductcode", out value)) // if is a child of a product
+                    {
+                        ChildProduct childItem = new ChildProduct(productItem.ID);
+                        childItem = productItem;
+
+                    }
+
+
+                        // HTML of product description [string] Description productdescription
+                        // Determine if seen on home page [bool?] OnHomePage homepage_section
+                        // Keywords for SEO [string] MetaTagKeywords metatag_keywords
                 }
             }
         }

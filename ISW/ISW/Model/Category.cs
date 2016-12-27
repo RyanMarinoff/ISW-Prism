@@ -1,192 +1,271 @@
-﻿namespace ISW.Model
+﻿using System;
+
+namespace ISW.Model
 {
-    class Category
+    class Category : IEquatable<Category>
     {
         public Category(int id)
         {
             _id = id;
         }
 
-        private int _id;                            
-        // Category ID
+        // Category ID [int] categoryid
+        private int _id;
         public int ID
         {
             get { return _id; }
         }
-        private Category _parent;                     
-        // category id of parent category
+
+        // Category ID of Parent Category [int] parentid
+        private Category _parent;
         public Category Parent
         {
             get { return _parent; }
             set { _parent = value; }
         }
-        private string _name;                       
-        // Name of Category
+
+        // Name of the Category [string] categoryname
+        private string _name;
         public string Name
         {
             get { return _name; }
             set { _name = value; }
         }
-        private int? _displayOrder;                 
-        // Display order prevalence
+
+        // Display Order Prevalence [string] categoryorder
+        private int? _displayOrder;
         public int? DisplayOrder
         {
             get { return _displayOrder; }
             set { _displayOrder = value; }
         }
-        private bool? _visibility;                  
-        // Is the category visible
+
+        // Is the category visible [bool] categoryvisibile
+        private bool? _visibility;
         public bool? Visibility
         {
             get { return _visibility; }
             set { _visibility = value; }
         }
-        private string _alternateURL;               
-        // Alternate URL for Category
+
+        // Alternate URL for Category [string] alternateurl
+        private string _alternateURL;
         public string AlternateURL
         {
             get { return _alternateURL; }
             set { _alternateURL = value; }
         }
-        private bool? _filterCategory;              
-        // Is this a filter category
+
+        // Is this a filter category [bool] filtercategory
+        private bool? _filterCategory;
         public bool? FilterCategory
         {
             get { return _filterCategory; }
             set { _filterCategory = value; }
         }
-        private string _descriptionShort;           
-        // Short description of the Category
+
+        // Short description of the Category [string] categorydescriptionshort
+        private string _descriptionShort;
         public string DescriptionShort
         {
             get { return _descriptionShort; }
             set { _descriptionShort = value; }
         }
-        private string _description;                
-        // Category Description 
+
+        // Category Description [string] categorydescription
+        private string _description;
         public string Description
         {
             get { return _description; }
             set { _description = value; }
         }
-        private string _descriptionBelowProducts;   
-        // The secondary description located below the product 
+
+        // The secondary description located below the product [string] categorydescription_belowproducts
+        private string _descriptionBelowProducts;
         public string DescriptionBelowProducts
         {
             get { return _descriptionBelowProducts; }
             set { _descriptionBelowProducts = value; }
         }
-        private string _customWhereClause;          
-        // Custom SQL Filter 
+
+        // Custom SQL Filter [string] custom_where_clause
+        private string _customWhereClause;
         public string CustomWhereClause
         {
             get { return _customWhereClause; }
             set { _customWhereClause = value; }
         }
-        private bool? _hidden;                      
-        // Is the category hidden 
+
+        // Is the category hidden [bool] hidden
+        private bool? _hidden;
         public bool? Hidden
         {
             get { return _hidden; }
             set { _hidden = value; }
         }
-        private string _metaTagKeywords;            
-        // SEO Keywords (should be blank) 
+
+        // SEO Keywords [string] metatag_keywords
+        private string _metaTagKeywords;
         public string MetaTagKeywords
         {
             get { return _metaTagKeywords; }
             set { _metaTagKeywords = value; }
         }
-        private string _metaTagTitle;               
-        // SEO title
+
+        // SEO title [string] metatag_title
+        private string _metaTagTitle;
         public string MetaTagTitle
         {
             get { return _metaTagTitle; }
             set { _metaTagTitle = value; }
         }
-        private string _metaTagDescription;         
-        // SEO Description
+
+        // SEO Description [string] metatag_description
+        private string _metaTagDescription;
         public string MetaTagDescription
         {
             get { return _metaTagDescription; }
             set { _metaTagDescription = value; }
         }
-        private int? _displayRows;                 
-        // ?? Display rows 
+
+        // ?? How many rows to be displayed [int] display_rows
+        private int? _displayRows;
         public int? DisplayRows
         {
             get { return _displayRows; }
             set { _displayRows = value; }
         }
-        private string _defaultSortBy;              
-        // ?? Default sort by 
+
+        // ?? Default sort by [string] DefaultSortBy
+        private string _defaultSortBy;
         public string DefaultSortBy
         {
             get { return _defaultSortBy; }
             set { _defaultSortBy = value; }
         }
-        private bool? _displayListPrice;            
-        // Display “List Price” 
+
+        // Display "List Price" [bool] display_showlistprice
+        private bool? _displayListPrice;
         public bool? DisplayListPrice
         {
             get { return _displayListPrice; }
             set { _displayListPrice = value; }
         }
-        private bool? _displayYouSave;              
-        // Display “You Save” 
+
+        // Display "You Save" [bool] display_showyousave
+        private bool? _displayYouSave;
         public bool? DisplayYouSave
         {
             get { return _displayYouSave; }
             set { _displayYouSave = value; }
         }
-        private bool? _displayDescriptionShort;     
-        // Display “Description Short” 
+
+        // Display "Description Short" [bool] DisplayDescriptionShort
+        private bool? _displayDescriptionShort;
         public bool? DisplayDescriptionShort
         {
             get { return _displayDescriptionShort; }
             set { _displayDescriptionShort = value; }
         }
-        private bool? _displayAvailability;         
-        // Display “Availability 
+
+        // Display "Availability" [bool] DisplayAvailablility
+        private bool? _displayAvailability;
         public bool? DisplayAvailablility
         {
             get { return _displayAvailability; }
             set { _displayAvailability = value; }
         }
-        private bool? _displayFeaturedProductsOnly; 
-        // Display the featured products only 
+
+        // Display the featured products only [bool] DisplayFeaturedProductsOnly
+        private bool? _displayFeaturedProductsOnly;
         public bool? DisplayFeaturedProductsOnly
         {
             get { return _displayFeaturedProductsOnly; }
             set { _displayFeaturedProductsOnly = value; }
         }
-        private string _linkTitleTag;               
-        // Category URL Text 
+
+        // Category URL Text [string] LinkTitleTag
+        private string _linkTitleTag;
         public string LinkTitleTag
         {
             get { return _linkTitleTag; }
             set { _linkTitleTag = value; }
         }
-        private string _graphicPlacement;           
-        // Graphic Placement 
+
+        // Graphic Placement [string] GraphicPlacement
+        private string _graphicPlacement;
         public string GraphicPlacement
         {
             get { return _graphicPlacement; }
             set { _graphicPlacement = value; }
         }
-        private string _subCategoryDisplayMode;     
-        // SubCaqtegory Display Mode 
+
+        // SubCategory Display Mode [int] SubCategoryDisplayMode
+        private string _subCategoryDisplayMode;
         public string SubCategoryDisplayMode
         {
             get { return _subCategoryDisplayMode; }
             set { _subCategoryDisplayMode = value; }
         }
-        private int? _subCategoryDisplayColumns;    
-        // Number of subcategory display columns
+
+        // Number of subcategory display columns [string] SubCategoryDisplayColums
+        private int? _subCategoryDisplayColumns;
         public int? SubCategoryDisplayColums
         {
             get { return _subCategoryDisplayColumns; }
             set { _subCategoryDisplayColumns = value; }
+        }
+
+        // Overloads
+        public override string ToString()
+        {
+            return "ID: " + _id + " - " + _description;
+        }
+
+        public override int GetHashCode()
+        {
+            return _id.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+            return Equals(obj as Category);
+        }
+
+        public bool Equals(Category other)
+        {
+            if (other == null)
+                return false;
+            return _id.Equals(other.ID);
+        }
+
+        public bool Equals(int otherID)
+        {
+            return _id.Equals(otherID);
+        }
+
+        public static bool operator ==(Category a, Category b)
+        {
+            if (object.ReferenceEquals(a, b))
+                return true;
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(Category a, Category b)
+        {
+            return !(a == b);
+        }
+
+        public static bool operator ==(Category a, int b)
+        {
+            return a.ID == b;
+        }
+
+        public static bool operator !=(Category a, int b)
+        {
+            return !(a == b);
         }
     }
 }
