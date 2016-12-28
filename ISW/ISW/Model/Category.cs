@@ -219,7 +219,15 @@ namespace ISW.Model
         // Overloads
         public override string ToString()
         {
-            return "ID: " + _id + " - " + _description;
+            return "ID: " + _id + " - " + GetNameString();
+        }
+
+        private string GetNameString()
+        {
+            if(_parent == null)
+                return _name;
+
+            return _parent.GetNameString() + ">" + _name;
         }
 
         public override int GetHashCode()

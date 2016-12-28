@@ -136,5 +136,6 @@ namespace ISW.Model
             get { return _productPrice; }
             set { _productPrice = value; }
         }
+        
     }
 }

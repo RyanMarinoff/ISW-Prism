@@ -7,6 +7,15 @@ using System;
 
 namespace ISW.IoC
 {
+    static class IData
+    {
+        static public List<Category> Categories { get; set; }
+        static public List<OptionCategory> OptCategories { get; set; }
+        static public List<Option> Options { get; set; }
+        static public List<Vendor> Vendors { get; set; }
+        static public List<ParentProduct> Products { get; set; }
+    }
+
     static class IDataLoader
     {
         public static void LoadOptionCategories(string categoryFile, ref List<OptionCategory> optionCategories)
@@ -517,31 +526,103 @@ namespace ISW.IoC
                         float price;
                         if(float.TryParse(value, out price))
                         {
-                            if(price != -1)
-                            {
-                                productItem.ProductPrice = price;
-                            }
+                            productItem.ProductPrice = price;
                         }
                     }
 
                     // Determine if this item is a parent or a child product
 
                     // List of Child Products assigned to the shoe [List] ChildProducts ischildofproductcode
-                    if (item.TryGetValue("ischildofproductcode", out value)) // if is a child of a product
+                    //   ---   Number of shoes in stock [int] stockstatus
+                    if (item.TryGetValue("ischildofproductcode", out value)) 
                     {
-                        ChildProduct childItem = new ChildProduct(productItem.ID);
-                        childItem = productItem;
+                        if (value != "") // if there is a value within here
+                        {
+                            // copy the current item as a child item
+                            ChildProduct childItem = new ChildProduct(productItem);
 
+                            // Number of shoes in stock [int] stockstatus
+                            string stockstatus;
+                            if (item.TryGetValue("stockstatus", out stockstatus))
+                            {
+                                int status;
+                                if(int.TryParse(stockstatus, out status))
+                                {
+                                    childItem.StockStatus = status;
+                                }
+                            }
+                            var parentIndex = products.FindIndex(x => x.ID == value);
+                            if(parentIndex != -1)
+                            {
+                                products[parentIndex].ChildProducts.Add(childItem);
+                                break;
+                            }
+                        }
                     }
 
+                    // HTML of product description [string] productdescription
+                    if (item.TryGetValue("productdescription", out value))
+                    {
+                        productItem.Description = value;
+                    }
+                    // Determine if seen on home page [bool?] homepage_section
+                    if(item.TryGetValue("homepage_section", out value))
+                    {
+                        if (value != "")
+                            productItem.OnHomePage = value.Equals("Y");
+                    }
+                    // Keywords for SEO [string] metatag_keywords
+                    if(item.TryGetValue("metatag_keywords", out value))
+                    {
+                        productItem.MetaTagKeywords = value;
+                    }
 
-                        // HTML of product description [string] Description productdescription
-                        // Determine if seen on home page [bool?] OnHomePage homepage_section
-                        // Keywords for SEO [string] MetaTagKeywords metatag_keywords
+                    // each item must be unique
+                    var productIndex = products.FindIndex(x => x.ID == productItem.ID);
+                    if (productIndex == -1)
+                        products.Add(productItem);
+                    else
+                        products[productIndex] = productItem;
                 }
             }
         }
 
+        private static List<Dictionary<string, string>> temp_ProcessCSV(string fileLocation)
+        {
+            Dictionary<string, string> item;
+            List<Dictionary<string, string>> items = new List<Dictionary<string, string>>();
+
+            if (fileLocation == "")
+                return items;
+
+            var streamReader = new StreamReader(fileLocation);
+            var header = streamReader.ReadLine();
+            var headings = header.Split(',');
+            var productDescriptionIndex = Array.IndexOf(headings, "productdescription");
+            if(productDescriptionIndex == -1)
+            {
+                streamReader.Close();
+                //return PCSV(fileLocation);
+            }
+
+            while (!streamReader.EndOfStream)
+            {
+                item = new Dictionary<string, string>();
+                var line = streamReader.ReadLine();
+                var values = line.Split(',');
+
+                if(values.Length > productDescriptionIndex)
+                {
+                    var firstHalf = values.Take(productDescriptionIndex).ToArray();
+                    var secondHalf = values.Skip(productDescriptionIndex).ToArray();
+                    var nextLine = streamReader.ReadLine();
+                    var nextValues = nextLine.Split(',');
+                }
+            }
+
+            streamReader.Close();
+            return items;
+        }
         private static List<Dictionary<string,string>> ProcessCSV(string fileLocation)
         {
             Dictionary<string, string> item;
@@ -552,70 +633,61 @@ namespace ISW.IoC
 
             var streamReader = new StreamReader(fileLocation);
             var header = streamReader.ReadLine();
-            var headings = header.Split(',');
+            var headings = header.Split('|');
 
             while (!streamReader.EndOfStream)
             {
                 item = new Dictionary<string, string>();
                 var line = streamReader.ReadLine();
-                var values = line.Split(',');
+                var values = line.Split('|');
 
-                // Within the volusion files, the HTML of the description is seperated into different lines.
-                // We do this so to consolidate the string into a single array index. strings are surrounded by "
-                bool consolidateString;
-                do
+                if (values.Length != headings.Length)
                 {
-                    consolidateString = true;
-                    var newArray = new List<string>(values);
-
-                    int length = values.Length;
-                    for (int i = 0; i < length; i++)
+                    // Within the volusion files, the HTML of the description is seperated into different lines.
+                    // We do this so to consolidate the string into a single array index. strings are surrounded by "
+                    bool consolidateString;
+                    do
                     {
-                        if (newArray[i] != "" && (newArray[i][0] == '\"' && newArray[i][newArray[i].Count() - 1] != '\"') && i != length - 1)
+                        consolidateString = true;
+                        var newArray = new List<string>(values);
+
+                        for (int i = 0; i < newArray.Count; i++)
                         {
-                            newArray[i] = newArray[i] + ',' + newArray[i + 1];
-                            newArray.RemoveAt(i + 1);
-                            length--;
-                            if (i != length)
-                                consolidateString = false;
+                            if (newArray[i] != "" && (newArray[i][0] == '\"' && newArray[i][newArray[i].Count() - 1] != '\"') && i != newArray.Count - 1)
+                            {
+                                newArray[i] = newArray[i] + ',' + newArray[i + 1];
+                                newArray.RemoveAt(i + 1);
+                                //i--;
+                            }
                         }
-                    }
 
-                    values = null;
-                    values = newArray.ToArray();
-                } while (!consolidateString);
+                        values = newArray.ToArray();
+                        // the values / headings length may not be the same due to the above manipulation of the data
+                        // when there are more headings than values, need to combine the values of the next line to the
+                        // values of this line
+                        if (headings.Length > values.Length)
+                        {
+                            var nextLine = streamReader.ReadLine();
+                            var leftOverValues = nextLine.Split('|');
 
-                // the values / headings length may not be the same due to the above manipulation of the data
-                // when there are more headings than values, need to combine the values of the next line to the
-                // values of this line
-                if(headings.Length > values.Length)
-                {
-                    var nextLine = streamReader.ReadLine();
-                    var leftOverValues = nextLine.Split(',');
-                    values[values.Length - 1] += '\n' + leftOverValues[0];
-                    values = values.Concat(leftOverValues.Skip(1)).ToArray();
+                            values[values.Length - 1] += '\n' + leftOverValues[0];
+                            values = values.Concat(leftOverValues.Skip(1)).ToArray();
+                            consolidateString = false;
+                        }
+                        if (headings.Length != values.Length)
+                        {
+                            consolidateString = false;
+                        }
+                    } while (!consolidateString);
                 }
+
 
                 // if the headings and values have equal members, all is good to process them into the dictionary
-                else if(headings.Length == values.Length)
+                for(int i = 0; i < values.Length; i++)
                 {
-                    for(int i = 0; i < values.Length; i++)
-                    {
-                        if (values[i].StartsWith("\"") && values[i].EndsWith("\""))
-                            values[i].Trim('\"');
-                        item.Add(headings[i], values[i]);
-                    }
-                }
-
-                // if there are more values than there are headings, 
-                else
-                {
-                    string output = "";
-                    foreach(string value in values)
-                    {
-                        output += value + ',';
-                    }
-                    throw new IOException("There are more values than there are headings. Find out why...\n\n" + output);
+                    if (values[i].StartsWith("\"") && values[i].EndsWith("\""))
+                        values[i] = values[i].Trim('\"');
+                    item.Add(headings[i], values[i]);
                 }
 
                 items.Add(item);
