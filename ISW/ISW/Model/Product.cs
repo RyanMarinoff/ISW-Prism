@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ISW.Model
 {
-    class Product
+    abstract class Product
     {
 
         public Product(string productCode)
@@ -136,6 +136,5 @@ namespace ISW.Model
             get { return _productPrice; }
             set { _productPrice = value; }
         }
-        
     }
 }

@@ -44,7 +44,7 @@ namespace ISW.Model
 
         public bool Equals(OptionCategory other)
         {
-            if (other == null)
+            if (other == default(OptionCategory))
                 return false;
             return _id.Equals(other.ID);
         }
@@ -56,7 +56,7 @@ namespace ISW.Model
 
         public static bool operator ==(OptionCategory a, OptionCategory b)
         {
-            if (object.ReferenceEquals(a, b))
+            if (ReferenceEquals(a, b))
                 return true;
             return a.Equals(b);
         }

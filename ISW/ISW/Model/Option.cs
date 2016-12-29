@@ -60,7 +60,7 @@ namespace ISW.Model
 
         public bool Equals(Option other)
         {
-            if (other == null)
+            if (other == default(Option))
                 return false;
             return _id.Equals(other.ID);
         }
@@ -72,7 +72,7 @@ namespace ISW.Model
 
         public static bool operator ==(Option a, Option b)
         {
-            if (object.ReferenceEquals(a, b))
+            if (ReferenceEquals(a, b))
                 return true;
             return a.Equals(b);
         }

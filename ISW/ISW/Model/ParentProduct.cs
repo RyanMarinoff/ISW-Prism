@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ISW.Model
 {
-    class ParentProduct : Product
+    class ParentProduct : Product, IEquatable<ParentProduct>
     {
         public ParentProduct(string ProductCode) : base(ProductCode)
         {
@@ -42,6 +43,57 @@ namespace ISW.Model
         {
             get { return _metaTagKeywords; }
             set { _metaTagKeywords = value; }
+        }
+
+        // overrides
+        public override string ToString()
+        {
+            return "ID: " + ID + " - " + Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+            return Equals(obj as ParentProduct);
+        }
+        public bool Equals(ParentProduct other)
+        {
+            if (other == default(ParentProduct))
+                return false;
+            return ID.Equals(other.ID);
+        }
+
+        public bool Equals(string otherID)
+        {
+            return string.Equals(ID, otherID);
+        }
+
+        public static bool operator ==(ParentProduct a, ParentProduct b)
+        {
+            if (ReferenceEquals(a, b))
+                return true;
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(ParentProduct a, ParentProduct b)
+        {
+            return !(a == b);
+        }
+
+        public static bool operator ==(ParentProduct a, string b)
+        {
+            return string.Equals(a.ID, b);
+        }
+
+        public static bool operator !=(ParentProduct a, string b)
+        {
+            return !(a == b);
         }
     }
 }

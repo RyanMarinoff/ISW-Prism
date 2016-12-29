@@ -52,7 +52,7 @@ namespace ISW.Model
 
         public bool Equals(Vendor other)
         {
-            if (other == null)
+            if (other == default(Vendor))
                 return false;
             return _id.Equals(other.ID);
         }
@@ -64,7 +64,7 @@ namespace ISW.Model
 
         public static bool operator ==(Vendor a, Vendor b)
         {
-            if (object.ReferenceEquals(a, b))
+            if (ReferenceEquals(a, b))
                 return true;
             return a.Equals(b);
         }

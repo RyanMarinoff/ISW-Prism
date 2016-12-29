@@ -244,7 +244,7 @@ namespace ISW.Model
 
         public bool Equals(Category other)
         {
-            if (other == null)
+            if (other == default(Category))
                 return false;
             return _id.Equals(other.ID);
         }
@@ -256,7 +256,7 @@ namespace ISW.Model
 
         public static bool operator ==(Category a, Category b)
         {
-            if (object.ReferenceEquals(a, b))
+            if (ReferenceEquals(a, b))
                 return true;
             return a.Equals(b);
         }
