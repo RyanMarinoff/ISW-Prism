@@ -11,7 +11,7 @@ This makes everything hidden during the use of the class. Also, this will
 make all data to be accessible only on certain terms. The intent is to ensure
 that all data that is placed within the class will be safe and accurate. Due
 to not implementing this functionality till a later date, I have created
-ccessor for each data type. The ID field is unique, where after creation this
+an accessor for each data type. The ID field is unique, where after creation this
 field is not able to be changed. Changing this field will indicate a different
 physical item.
 
@@ -26,7 +26,7 @@ object used.
 
 # Set data loading functionality within IDataLoader
 
-Using pre-existing code examples as stated yesterday, I have completed the primary
+Using pre-existing code examples as stated yesterday, I have completed the preliminary
 loading of data for the Vendor, Option and Category models. Currently the purpose
 is to get the data loaded into the application. Actual use and manipulation of the
 data is not part of the intent.
