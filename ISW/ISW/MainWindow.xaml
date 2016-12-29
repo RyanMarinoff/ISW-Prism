@@ -9,10 +9,7 @@
     <Grid>
         
         <!-- Testing Code -->
-        <!--TC--><Button x:Name="_btnTestOption" Content="Test Option" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="103" Click="_btnTestOption_Click"/>
-        <!--TC--><Button x:Name="_btnTestCategory" Content="Test Category" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="103" Click="_btnTestCategory_Click"/>
-        <!--TC--><Button x:Name="_btnTestVendor" Content="Test Vendor" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="103" Click="_btnTestVendor_Click"/>
-        <!--TC--><Button x:Name="_btnTestProduct" Content="Test Product" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="103" Click="_btnTestProduct_Click"/>
+        <!--TC--><Button x:Name="_btnTestProduct" Content="Test Product" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="103" Click="_btnTestProduct_Click"/>
         <!-- End Testing Code -->
         
     </Grid>

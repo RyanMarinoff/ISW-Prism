@@ -18,8 +18,12 @@ namespace ISW.IoC
 
     static class IDataLoader
     {
-        public static void LoadOptionCategories(string categoryFile, ref List<OptionCategory> optionCategories)
+        public static void LoadOptionCategories(string categoryFile)
         {
+            // Initialize OptionCategories
+            if (IData.OptCategories == null)
+                IData.OptCategories = new List<OptionCategory>();
+
             // The raw data from the CSV file
             List<Dictionary<string, string>> theList = ProcessCSV(categoryFile);
 
@@ -49,17 +53,25 @@ namespace ISW.IoC
                     }
 
                     // each item must be unique
-                    var index = optionCategories.FindIndex(x => x.ID == optionCategoryItem.ID);
+                    var index = IData.OptCategories.FindIndex(x => x.ID == optionCategoryItem.ID);
                     if (index == -1)
-                        optionCategories.Add(optionCategoryItem);
+                        IData.OptCategories.Add(optionCategoryItem);
                     else
-                        optionCategories[index] = optionCategoryItem;
+                        IData.OptCategories[index] = optionCategoryItem;
                 }
             }
         }
 
-        public static void LoadOptions(string optionFile, ref List<Option> options, ref List<OptionCategory> OptionCategories)
+        public static void LoadOptions(string optionFile)
         {
+            // Check for required data
+            if (IData.OptCategories == null)
+                throw new Exception("OptionCatagories not ready for Options");
+
+            // Initialize Options
+            if (IData.Options == null)
+                IData.Options = new List<Option>();
+
             // The raw data from the CSV file
             List<Dictionary<string, string>> theList = ProcessCSV(optionFile);
 
@@ -101,21 +113,25 @@ namespace ISW.IoC
                     {
                         int n;
                         if (int.TryParse(value, out n))
-                            optionItem.Category = OptionCategories.Find(x => x.ID == n);
+                            optionItem.Category = IData.OptCategories.Find(x => x.ID == n);
                     }
 
                     // each item must be unique
-                    var optionIndex = options.FindIndex(x => x.ID == optionItem.ID);
+                    var optionIndex = IData.Options.FindIndex(x => x.ID == optionItem.ID);
                     if (optionIndex == -1)
-                        options.Add(optionItem);
+                        IData.Options.Add(optionItem);
                     else
-                        options[optionIndex] = optionItem;
+                        IData.Options[optionIndex] = optionItem;
                 }
             }
         }
 
-        public static void LoadCategories(string categoryFile, ref List<Category> categories)
+        public static void LoadCategories(string categoryFile)
         {
+            // Initialize Categories
+            if (IData.Categories == null)
+                IData.Categories = new List<Category>();
+
             // The raw data from the CSV file
             List<Dictionary<string, string>> theList = ProcessCSV(categoryFile);
 
@@ -322,27 +338,31 @@ namespace ISW.IoC
                     }
 
                     // each item must be unique
-                    var categoryIndex = categories.FindIndex(x => x.ID == categoryItem.ID);
+                    var categoryIndex = IData.Categories.FindIndex(x => x.ID == categoryItem.ID);
                     if (categoryIndex == -1)
-                        categories.Add(categoryItem);
+                        IData.Categories.Add(categoryItem);
                     else
-                        categories[categoryIndex] = categoryItem;
+                        IData.Categories[categoryIndex] = categoryItem;
                 }
             }
 
             // Process the Parent Categories [Category] Item within CategoryWithParent
             foreach(var item in CategoryWithParent)
             {
-                var index = categories.FindIndex(x => x.ID == item.Value);
+                var index = IData.Categories.FindIndex(x => x.ID == item.Value);
                 if (index != -1)
-                    item.Key.Parent = categories[index];
+                    item.Key.Parent = IData.Categories[index];
                 else
                     throw new InvalidDataException("Category ID " + item.Value + " not found.");
             }
         }
         
-        public static void LoadVendors(string vendorFile, ref List<Vendor> vendors)
+        public static void LoadVendors(string vendorFile)
         {
+            // Initialize Vendors
+            if (IData.Vendors == null)
+                IData.Vendors = new List<Vendor>();
+
             // The raw data from the CSV file
             List<Dictionary<string, string>> theList = ProcessCSV(vendorFile);
             Vendor vendorItem;
@@ -377,17 +397,29 @@ namespace ISW.IoC
                     }
 
                     // each item must be unique
-                    var vendorIndex = vendors.FindIndex(x => x.ID == vendorItem.ID);
+                    var vendorIndex = IData.Vendors.FindIndex(x => x.ID == vendorItem.ID);
                     if (vendorIndex == -1)
-                        vendors.Add(vendorItem);
+                        IData.Vendors.Add(vendorItem);
                     else
-                        vendors[vendorIndex] = vendorItem;
+                        IData.Vendors[vendorIndex] = vendorItem;
                 }
             }
         }
 
-        public static void LoadProducts(string productFile, ref List<ParentProduct> products, ref List<Category> categories, ref List<Option> options, ref List<Vendor> vendors)
+        public static void LoadProducts(string productFile)
         {
+            // Check for required loaded data
+            if (IData.Categories == null)
+                throw new Exception("Categories Not Ready for Products");
+            if (IData.Options == null)
+                throw new Exception("Options Not Ready for Products");
+            if (IData.Vendors == null)
+                throw new Exception("Vendors Not Ready for Products");
+
+            // Initialize Products
+            if (IData.Products == null)
+                IData.Products = new List<ParentProduct>();
+
             // The raw data from the CSV file
             List<Dictionary<string, string>> theList = ProcessCSV(productFile);
             ParentProduct productItem;
@@ -417,7 +449,7 @@ namespace ISW.IoC
                             int cid;
                             if(int.TryParse(catid, out cid))
                             {
-                                var cat = categories.Find(x => x.ID == cid);
+                                var cat = IData.Categories.Find(x => x.ID == cid);
                                 if(cat != null)
                                     itemCategories.Add(cat);
                             }
@@ -435,7 +467,7 @@ namespace ISW.IoC
                             int oid;
                             if(int.TryParse(optid, out oid))
                             {
-                                var opt = options.Find(x => x.ID == oid);
+                                var opt = IData.Options.Find(x => x.ID == oid);
                                 if (opt != null)
                                     itemOptions.Add(opt);
                             }
@@ -510,14 +542,7 @@ namespace ISW.IoC
                     // Manufacturer of the product [Vendor] productmanufacturer
                     if(item.TryGetValue("productmanufacturer", out value))
                     {
-                        int vid;
-                        if(int.TryParse(value, out vid))
-                        {
-                            if(vid != -1)
-                            {
-                                productItem.ItemVendor = vendors.Find(x => x.ID == vid);
-                            }
-                        }
+                        productItem.ItemVendor = IData.Vendors.Find(x => x.Title == value);
                     }
 
                     // Price of product [float] ProductPrice productprice
@@ -551,11 +576,11 @@ namespace ISW.IoC
                                     childItem.StockStatus = status;
                                 }
                             }
-                            var parentIndex = products.FindIndex(x => x.ID == value);
+                            var parentIndex = IData.Products.FindIndex(x => x.ID == value);
                             if(parentIndex != -1)
                             {
-                                products[parentIndex].ChildProducts.Add(childItem);
-                                break;
+                                IData.Products[parentIndex].ChildProducts.Add(childItem);
+                                continue;
                             }
                         }
                     }
@@ -578,51 +603,15 @@ namespace ISW.IoC
                     }
 
                     // each item must be unique
-                    var productIndex = products.FindIndex(x => x.ID == productItem.ID);
+                    var productIndex = IData.Products.FindIndex(x => x.ID == productItem.ID);
                     if (productIndex == -1)
-                        products.Add(productItem);
+                        IData.Products.Add(productItem);
                     else
-                        products[productIndex] = productItem;
+                        IData.Products[productIndex] = productItem;
                 }
             }
         }
-
-        private static List<Dictionary<string, string>> temp_ProcessCSV(string fileLocation)
-        {
-            Dictionary<string, string> item;
-            List<Dictionary<string, string>> items = new List<Dictionary<string, string>>();
-
-            if (fileLocation == "")
-                return items;
-
-            var streamReader = new StreamReader(fileLocation);
-            var header = streamReader.ReadLine();
-            var headings = header.Split(',');
-            var productDescriptionIndex = Array.IndexOf(headings, "productdescription");
-            if(productDescriptionIndex == -1)
-            {
-                streamReader.Close();
-                //return PCSV(fileLocation);
-            }
-
-            while (!streamReader.EndOfStream)
-            {
-                item = new Dictionary<string, string>();
-                var line = streamReader.ReadLine();
-                var values = line.Split(',');
-
-                if(values.Length > productDescriptionIndex)
-                {
-                    var firstHalf = values.Take(productDescriptionIndex).ToArray();
-                    var secondHalf = values.Skip(productDescriptionIndex).ToArray();
-                    var nextLine = streamReader.ReadLine();
-                    var nextValues = nextLine.Split(',');
-                }
-            }
-
-            streamReader.Close();
-            return items;
-        }
+        
         private static List<Dictionary<string,string>> ProcessCSV(string fileLocation)
         {
             Dictionary<string, string> item;
