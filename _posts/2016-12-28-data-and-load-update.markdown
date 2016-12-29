@@ -3,7 +3,8 @@ layout: post
 title: Data and Load Update
 date: 2016-12-28 17:05:00 -0500
 categories: blog update code data model
-----
+---
+
 # IDataLoad and IData
 
 I have started working on the Product loading and found that there are a few issues. It has been found that within the product descriptions, the pattern I was using to determine the different fields within the database existed. I found that instead of exporting the data from the company website in 'CSV - Comma Delimited Text File', export it in the 'PIPE - Pipe Delimited Text File' format. This will allow an easier processing of the data into the program's database. The only other time the pipe symbol is used is within the H1 tags.
