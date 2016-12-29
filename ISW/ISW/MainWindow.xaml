@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ISW"
         mc:Ignorable="d"
-        Title="{DynamicResource AppTitle}" Height="350" Width="525" Icon="{DynamicResource AppIcon}">
+        Title="{DynamicResource AppTitle}" Height="155.178" Width="301.861" Icon="{DynamicResource AppIcon}">
     <Grid>
         
         <!-- Testing Code -->
-        <!--TC--><Button x:Name="_btnTestProduct" Content="Test Product" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="103" Click="_btnTestProduct_Click"/>
+        <!--TC--><Button x:Name="_btnTestProduct" Content="Test Product" HorizontalAlignment="Center" VerticalAlignment="Center" Width="103" Click="_btnTestProduct_Click"/>
         <!-- End Testing Code -->
         
     </Grid>
