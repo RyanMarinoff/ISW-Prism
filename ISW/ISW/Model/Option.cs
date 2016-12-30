@@ -62,7 +62,7 @@ namespace ISW.Model
         {
             if (other == default(Option))
                 return false;
-            return _id.Equals(other.ID);
+            return Equals(other.ID);
         }
 
         public bool Equals(int otherID)
@@ -90,6 +90,20 @@ namespace ISW.Model
         public static bool operator !=(Option a, int b)
         {
             return !(a == b);
+        }
+
+        public static bool operator ==(int a, Option b)
+        {
+            return b == a;
+        }
+        public static bool operator !=(int a, Option b)
+        {
+            return !(a == b);
+        }
+
+        internal bool UpdateData(Option option)
+        {
+            throw new NotImplementedException();
         }
     }
 }

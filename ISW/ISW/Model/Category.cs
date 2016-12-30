@@ -267,5 +267,15 @@ namespace ISW.Model
         {
             return !(a == b);
         }
+
+        // ********************
+        // * Member Functions *
+        // ********************
+
+        // Update Function
+        public bool UpdateData(Category update)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

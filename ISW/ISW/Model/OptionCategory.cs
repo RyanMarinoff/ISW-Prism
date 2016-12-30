@@ -4,19 +4,27 @@ namespace ISW.Model
 {
     class OptionCategory : IEquatable<OptionCategory>
     {
+        // ***************
+        // * Constructor *
+        // ***************
+
         public OptionCategory(int id)
         {
             _id = id;
         }
 
-        // Option Category ID [int] id
+        // **********
+        // * Fields *
+        // **********
+
+            // Option Category ID [int] id
         private int _id;
         public int ID
         {
             get { return _id; }
         }
 
-        // Option Category Description [string] optioncategoriesdesc
+            // Option Category Description [string] optioncategoriesdesc
         private string _description;
         public string Description
         {
@@ -24,17 +32,23 @@ namespace ISW.Model
             set { _description = value; }
         }
 
-        // Overloads
+        // *************
+        // * Overloads *
+        // *************
+
+            // ToString
         public override string ToString()
         {
             return "ID: " + _id + " - " + _description;
         }
 
+            // GetHashCode
         public override int GetHashCode()
         {
             return _id.GetHashCode();
         }
 
+            // Equals
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -46,7 +60,7 @@ namespace ISW.Model
         {
             if (other == default(OptionCategory))
                 return false;
-            return _id.Equals(other.ID);
+            return Equals(other.ID);
         }
 
         public bool Equals(int other)
@@ -54,6 +68,7 @@ namespace ISW.Model
             return _id.Equals(other);
         }
 
+            // Comparison Operator
         public static bool operator ==(OptionCategory a, OptionCategory b)
         {
             if (ReferenceEquals(a, b))
@@ -72,6 +87,16 @@ namespace ISW.Model
         }
 
         public static bool operator !=(OptionCategory a, int b)
+        {
+            return !(a == b);
+        }
+
+        public static bool operator ==(int a, OptionCategory b)
+        {
+            return b == a;
+        }
+
+        public static bool operator !=(int a, OptionCategory b)
         {
             return !(a == b);
         }

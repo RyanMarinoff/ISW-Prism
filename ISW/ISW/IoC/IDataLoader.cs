@@ -89,7 +89,7 @@ namespace ISW.IoC
                 IData.OptionCategories = new List<OptionCategory>();
 
             // The raw data from the CSV file
-            List<Dictionary<string, string>> theList = ProcessCSV(categoryFile);
+            List<Dictionary<string, string>> theList = ProcessData(categoryFile);
 
             OptionCategory optionCategoryItem;
 
@@ -136,7 +136,7 @@ namespace ISW.IoC
                 IData.Options = new List<Option>();
 
             // The raw data from the CSV file
-            List<Dictionary<string, string>> theList = ProcessCSV(optionFile);
+            List<Dictionary<string, string>> theList = ProcessData(optionFile);
 
             Option optionItem;
 
@@ -195,7 +195,7 @@ namespace ISW.IoC
                 IData.Categories = new List<Category>();
 
             // The raw data from the CSV file
-            List<Dictionary<string, string>> theList = ProcessCSV(categoryFile);
+            List<Dictionary<string, string>> theList = ProcessData(categoryFile);
 
             Category categoryItem;
 
@@ -418,7 +418,7 @@ namespace ISW.IoC
                 IData.Vendors = new List<Vendor>();
 
             // The raw data from the CSV file
-            List<Dictionary<string, string>> theList = ProcessCSV(vendorFile);
+            List<Dictionary<string, string>> theList = ProcessData(vendorFile);
             Vendor vendorItem;
 
             // process the list
@@ -474,7 +474,7 @@ namespace ISW.IoC
                 IData.Products = new List<ParentProduct>();
 
             // The raw data from the CSV file
-            List<Dictionary<string, string>> theList = ProcessCSV(productFile);
+            List<Dictionary<string, string>> theList = ProcessData(productFile);
             ParentProduct productItem;
 
             // process the list
@@ -671,7 +671,7 @@ namespace ISW.IoC
         // **********
 
             // Process Files
-        private static List<Dictionary<string,string>> ProcessCSV(string fileLocation)
+        private static List<Dictionary<string,string>> ProcessData(string fileLocation)
         {
             Dictionary<string, string> item;
             List<Dictionary<string, string>> items = new List<Dictionary<string, string>>();

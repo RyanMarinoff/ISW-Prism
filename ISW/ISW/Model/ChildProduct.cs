@@ -4,27 +4,22 @@ namespace ISW.Model
 {
     class ChildProduct : Product, IEquatable<ChildProduct>
     {
+        // ***************
+        // * Constructor *
+        // ***************
+
         public ChildProduct(ParentProduct Parent) : base(Parent.ID)
         {
-            Categories = Parent.Categories;
-            Options = Parent.Options;
-            Name = Parent.Name;
-            ShortName = Parent.ShortName;
-            ShortDescription = Parent.ShortDescription;
-            DisplayBeginDate = Parent.DisplayBeginDate;
-            Taxable = Parent.Taxable;
-            Hidden = Parent.Hidden;
-            MetaTagTitle = Parent.MetaTagTitle;
-            MetaTagDescription = Parent.MetaTagDescription;
-            PhotoAltText = Parent.PhotoAltText;
-            SaleText = Parent.SaleText;
-            ItemVendor = Parent.ItemVendor;
-            ProductPrice = Parent.ProductPrice;
+            UpdateData(Parent as Product);
         }
 
-        public ChildProduct(string id) : base(id) { }
+        // public ChildProduct(string id) : base(id) { }
 
-        // Number of shoes in stock [int] stockstatus
+        // **********
+        // * Fields *
+        // **********
+
+            // Number of shoes in stock [int] stockstatus
         private int _stockStatus;
         public int StockStatus
         {
@@ -32,17 +27,23 @@ namespace ISW.Model
             set { _stockStatus = value; }
         }
 
-        // Overloads
+        // *************
+        // * Overloads *
+        // *************
+
+            // ToString
         public override string ToString()
         {
             return "ID: " + ID + " - " + Name;
         }
 
+            // GetHashCode
         public override int GetHashCode()
         {
             return ID.GetHashCode();
         }
 
+            // Equals
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -54,14 +55,10 @@ namespace ISW.Model
         {
             if (other == default(ChildProduct))
                 return false;
-            return ID.Equals(other.ID);
+            return Equals(other.ID);
         }
 
-        public bool Equals(string otherID)
-        {
-            return string.Equals(ID, otherID);
-        }
-
+            // Operators
         public static bool operator ==(ChildProduct a, ChildProduct b)
         {
             if (ReferenceEquals(a, b))
@@ -76,12 +73,41 @@ namespace ISW.Model
 
         public static bool operator ==(ChildProduct a, string b)
         {
-            return string.Equals(a.ID, b);
+            return a.Equals(b);
         }
 
         public static bool operator !=(ChildProduct a, string b)
         {
             return !(a == b);
+        }
+
+        public static bool operator ==(string a, ChildProduct b)
+        {
+            return b.Equals(a);
+        }
+
+        public static bool operator !=(string a, ChildProduct b)
+        {
+            return !(a == b);
+        }
+
+        // ********************
+        // * Member Functions *
+        // ********************
+
+        // Update Function
+        public bool UpdateData(ChildProduct update)
+        {
+            if(this == update)
+            {
+                UpdateData(update as Product);
+
+                StockStatus = update.StockStatus;
+
+                return true;
+            }
+
+            return false;
         }
     }
 }
