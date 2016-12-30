@@ -1,28 +1,92 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System;
 
 using ISW.Model;
-using System;
 
 namespace ISW.IoC
 {
-    static class IData
-    {
-        static public List<Category> Categories { get; set; }
-        static public List<OptionCategory> OptCategories { get; set; }
-        static public List<Option> Options { get; set; }
-        static public List<Vendor> Vendors { get; set; }
-        static public List<ParentProduct> Products { get; set; }
-    }
-
     static class IDataLoader
     {
+        // **************
+        // * Data Store *
+        // **************
+        private static class IData
+        {
+            internal static List<Category> Categories { get; set; }
+            internal static List<OptionCategory> OptionCategories { get; set; }
+            internal static List<Option> Options { get; set; }
+            internal static List<Vendor> Vendors { get; set; }
+            internal static List<ParentProduct> Products { get; set; }
+        }
+
+        // *************
+        // * Accessors *
+        // *************
+
+            // Count Properties
+        public static int CategoriesCount
+        {
+            get
+            {
+                if (IData.Categories != null)
+                    return IData.Categories.Count;
+                else
+                    return -1;
+            }
+        }
+        public static int OptionCategoriesCount
+        {
+            get
+            {
+                if (IData.OptionCategories != null)
+                    return IData.OptionCategories.Count;
+                else
+                    return -1;
+            }
+        }
+        public static int OptionsCount
+        {
+            get
+            {
+                if (IData.Options != null)
+                    return IData.Options.Count;
+                else
+                    return -1;
+            }
+        }
+        public static int VendorsCount
+        {
+            get
+            {
+                if (IData.Vendors != null)
+                    return IData.Vendors.Count;
+                else
+                    return -1;
+            }
+        }
+        public static int ProductsCount
+        {
+            get
+            {
+                if (IData.Products != null)
+                    return IData.Products.Count;
+                else
+                    return -1;
+            }
+        }
+
+        // *************
+        // * Functions *
+        // *************
+
+            // Load Data
         public static void LoadOptionCategories(string categoryFile)
         {
             // Initialize OptionCategories
-            if (IData.OptCategories == null)
-                IData.OptCategories = new List<OptionCategory>();
+            if (IData.OptionCategories == null)
+                IData.OptionCategories = new List<OptionCategory>();
 
             // The raw data from the CSV file
             List<Dictionary<string, string>> theList = ProcessCSV(categoryFile);
@@ -53,19 +117,18 @@ namespace ISW.IoC
                     }
 
                     // each item must be unique
-                    var index = IData.OptCategories.FindIndex(x => x.ID == optionCategoryItem.ID);
+                    var index = IData.OptionCategories.FindIndex(x => x.ID == optionCategoryItem.ID);
                     if (index == -1)
-                        IData.OptCategories.Add(optionCategoryItem);
+                        IData.OptionCategories.Add(optionCategoryItem);
                     else
-                        IData.OptCategories[index] = optionCategoryItem;
+                        IData.OptionCategories[index] = optionCategoryItem;
                 }
             }
         }
-
         public static void LoadOptions(string optionFile)
         {
             // Check for required data
-            if (IData.OptCategories == null)
+            if (IData.OptionCategories == null)
                 throw new Exception("OptionCatagories not ready for Options");
 
             // Initialize Options
@@ -113,7 +176,7 @@ namespace ISW.IoC
                     {
                         int n;
                         if (int.TryParse(value, out n))
-                            optionItem.Category = IData.OptCategories.Find(x => x.ID == n);
+                            optionItem.Category = IData.OptionCategories.Find(x => x.ID == n);
                     }
 
                     // each item must be unique
@@ -125,7 +188,6 @@ namespace ISW.IoC
                 }
             }
         }
-
         public static void LoadCategories(string categoryFile)
         {
             // Initialize Categories
@@ -356,7 +418,6 @@ namespace ISW.IoC
                     throw new InvalidDataException("Category ID " + item.Value + " not found.");
             }
         }
-        
         public static void LoadVendors(string vendorFile)
         {
             // Initialize Vendors
@@ -405,7 +466,6 @@ namespace ISW.IoC
                 }
             }
         }
-
         public static void LoadProducts(string productFile)
         {
             // Check for required loaded data
@@ -611,7 +671,12 @@ namespace ISW.IoC
                 }
             }
         }
-        
+
+        // **********
+        // * Helper *
+        // **********
+
+            // Process Files
         private static List<Dictionary<string,string>> ProcessCSV(string fileLocation)
         {
             Dictionary<string, string> item;

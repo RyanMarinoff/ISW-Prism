@@ -1,8 +1,7 @@
-﻿using ISW.IoC;
-using ISW.Model;
-using Microsoft.Win32;
-using System.Linq;
+﻿using Microsoft.Win32;
 using System.Windows;
+
+using ISW.IoC;
 
 namespace ISW
 {
@@ -25,51 +24,59 @@ namespace ISW
         
         private void _btnTestProduct_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Sorry, not ready yet.");
-            
-            string _ext = ".txt";
-            string _filter = "Pipe Delimited Categories File|*.txt";
-            string _file;
-            
-            if (IData.Categories == null)
+            if (IDataLoader.ProductsCount < 1)
             {
-                MessageBox.Show("Load Categories");
+                string _ext = ".txt";
+                string _filter = "Pipe Delimited Categories File|*.txt";
+                string _file;
+
+                if (IDataLoader.CategoriesCount < 1)
+                {
+                    MessageBox.Show("Load Categories");
+                    _file = getFileName(_ext, _filter);
+                    IDataLoader.LoadCategories(_file);
+                    MessageBox.Show(IDataLoader.CategoriesCount + " categories loaded.");
+                }
+
+                _filter = _filter.Replace("Categories", "Options");
+                if (IDataLoader.OptionsCount < 1)
+                {
+                    _filter = _filter.Replace("Options", "OptionCategories");
+                    if (IDataLoader.OptionCategoriesCount < 1)
+                    {
+                        MessageBox.Show("Load OptionCategories");
+                        _file = getFileName(_ext, _filter);
+                        IDataLoader.LoadOptionCategories(_file);
+                        MessageBox.Show(IDataLoader.OptionCategoriesCount + " option categories loaded.");
+                    }
+
+                    MessageBox.Show("Load Options");
+                    _filter = _filter.Replace("OptionCategories", "Options");
+                    _file = getFileName(_ext, _filter);
+                    IDataLoader.LoadOptions(_file);
+                    MessageBox.Show(IDataLoader.OptionsCount + " options loaded.");
+                }
+
+                _filter = _filter.Replace("Options", "Vendors");
+                if (IDataLoader.VendorsCount < 1)
+                {
+                    MessageBox.Show("Load Vendors");
+                    _file = getFileName(_ext, _filter);
+                    IDataLoader.LoadVendors(_file);
+                    MessageBox.Show(IDataLoader.VendorsCount + " vendors loaded.");
+                }
+
+                MessageBox.Show("Load Products");
+                _filter.Replace("Vendors", "Categories");
                 _file = getFileName(_ext, _filter);
-                IDataLoader.LoadCategories(_file);
-                MessageBox.Show(IData.Categories.Count() + " categories loaded.");
+
+                IDataLoader.LoadProducts(_file);
+                MessageBox.Show(IDataLoader.ProductsCount + " products loaded.");
             }
-            
-            _filter = _filter.Replace("Categories", "Options");
-            if(IData.Options == null)
+            else
             {
-                MessageBox.Show("Load OptionCategories");
-                _filter = _filter.Replace("Options", "OptionCategories");
-                _file = getFileName(_ext, _filter);
-                IDataLoader.LoadOptionCategories(_file);
-                MessageBox.Show(IData.OptCategories.Count() + " option categories loaded.");
-
-                MessageBox.Show("Load Options");
-                _filter = _filter.Replace("OptionCategories", "Options");
-                _file = getFileName(_ext, _filter);
-                IDataLoader.LoadOptions(_file);
-                MessageBox.Show(IData.Options.Count() + " options loaded.");
+                MessageBox.Show(IDataLoader.ProductsCount + " Products already loaded.");
             }
-            
-            _filter = _filter.Replace("Options", "Vendors");
-            if(IData.Vendors == null)
-            {
-                MessageBox.Show("Load Vendors");
-                _file = getFileName(_ext, _filter);
-                IDataLoader.LoadVendors(_file);
-                MessageBox.Show(IData.Vendors.Count() + " vendors loaded.");
-            }
-
-            MessageBox.Show("Load Products");
-            _filter.Replace("Vendors", "Categories");
-            _file = getFileName(_ext, _filter);
-
-            IDataLoader.LoadProducts(_file);
-            MessageBox.Show(IData.Products.Count() + " products loaded.");
         }
 
         private string getFileName(string fileExt, string fileFilter)
