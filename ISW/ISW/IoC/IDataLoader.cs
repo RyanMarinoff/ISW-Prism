@@ -235,13 +235,6 @@ namespace ISW.IoC
                             categoryItem.DisplayOrder = n;
                     }
 
-                    // Is the category visible [bool] categoryvisibile
-                    if (item.TryGetValue("categoryvisibile", out value))
-                    {
-                        if (value != "")
-                            categoryItem.Visibility = value.Equals("Y");
-                    }
-
                     // Alternate URL for Category [string] alternateurl
                     if (item.TryGetValue("alternateurl", out value))
                     {
@@ -602,7 +595,8 @@ namespace ISW.IoC
                     // Manufacturer of the product [Vendor] productmanufacturer
                     if(item.TryGetValue("productmanufacturer", out value))
                     {
-                        productItem.ItemVendor = IData.Vendors.Find(x => x.Title == value);
+                        productItem.ItemVendor = value;
+                        //productItem.ItemVendor = IData.Vendors.Find(x => x.Title == value);
                     }
 
                     // Price of product [float] ProductPrice productprice

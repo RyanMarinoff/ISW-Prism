@@ -40,14 +40,6 @@ namespace ISW.Model
             set { _displayOrder = value; }
         }
 
-        // Is the category visible [bool] categoryvisibile
-        private bool? _visibility;
-        public bool? Visibility
-        {
-            get { return _visibility; }
-            set { _visibility = value; }
-        }
-
         // Alternate URL for Category [string] alternateurl
         private string _alternateURL;
         public string AlternateURL

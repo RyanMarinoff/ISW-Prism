@@ -120,8 +120,16 @@ namespace ISW.Model
         }
 
         // Manufacturer of the product [Vendor] productmanufacturer
-        private Vendor _itemVendor;
-        public Vendor ItemVendor
+        //private Vendor _itemVendor;
+        //public Vendor ItemVendor
+        //{
+        //    get { return _itemVendor; }
+        //    set { _itemVendor = value; }
+        //}
+
+        // Manufacturer of the product [string] productmanufacturer
+        private string _itemVendor;
+        public string ItemVendor
         {
             get { return _itemVendor; }
             set { _itemVendor = value; }
