@@ -11,6 +11,5 @@
         <!-- Testing Code -->
         <!--TC--><Button x:Name="_btnTestProduct" Content="Test Product" HorizontalAlignment="Center" VerticalAlignment="Center" Width="103" Click="_btnTestProduct_Click"/>
         <!-- End Testing Code -->
-        
     </Grid>
 </Window>

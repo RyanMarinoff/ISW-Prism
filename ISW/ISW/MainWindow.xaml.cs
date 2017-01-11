@@ -96,6 +96,10 @@ namespace ISW
             {
                 MessageBox.Show(IDataLoader.ProductsCount + " Products already loaded.");
             }
+
+            ProductData data = new ProductData();
+            data.Show();
+            Close();
         }
 
         private string getFileName(string fileExt, string fileFilter)

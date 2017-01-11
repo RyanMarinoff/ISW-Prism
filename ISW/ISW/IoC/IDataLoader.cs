@@ -45,7 +45,13 @@ namespace ISW.IoC
         // * Accessors *
         // *************
 
-            // Count Properties
+        // allow access to ParentProduct list
+        public static List<ParentProduct> Products
+        {
+            get { return IData.Products; }
+        }
+
+        // Count Properties
         public static int CategoriesCount
         {
             get

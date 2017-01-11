@@ -21,7 +21,7 @@ using System;
 
 namespace ISW.Model
 {
-    class OptionCategory : IEquatable<OptionCategory>
+    public class OptionCategory : IEquatable<OptionCategory>
     {
         // ***************
         // * Constructor *

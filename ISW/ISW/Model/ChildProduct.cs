@@ -18,10 +18,12 @@
  *                                                                        *
  **************************************************************************/
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace ISW.Model
 {
-    class ChildProduct : Product, IEquatable<ChildProduct>
+    public class ChildProduct : Product, IEquatable<ChildProduct>, INotifyPropertyChanged
     {
         // ***************
         // * Constructor *
@@ -33,17 +35,186 @@ namespace ISW.Model
         }
 
         // public ChildProduct(string id) : base(id) { }
+        // ***********************
+        // * Derrived Properties *
+        // ***********************
 
-        // **********
-        // * Fields *
-        // **********
+        // Product Code [string] productcode
+        public override string ID
+        {
+            get { return _id; }
+        }
 
-            // Number of shoes in stock [int] stockstatus
+        // List of Category IDs assigned to the shoe [List<Category>] categoryids
+        public override List<Category> Categories
+        {
+            get { return _categories; }
+            set
+            {
+                _categories = value;
+                RaisePropertyChanged("Child_CategoryIDs");
+            }
+        }
+
+        // List of Option IDs assigned to the shoe [List<Option>] optionids
+        public override List<Option> Options
+        {
+            get { return _options; }
+            set
+            {
+                _options = value;
+                RaisePropertyChanged("Child_OptionIDs");
+            }
+        }
+
+        // Product Name [string] productname
+        public override string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                RaisePropertyChanged("Child_ProductName");
+            }
+        }
+
+        // Shortened version of the product name [string] productnameshort
+        public override string ShortName
+        {
+            get { return _shortName; }
+            set
+            {
+                _shortName = value;
+                RaisePropertyChanged("Child_ProductNameShort");
+            }
+        }
+
+        // Short statement of product(mens/womens/accessories) [string] productdescriptionshort
+        public override string ShortDescription
+        {
+            get { return _shortDescription; }
+            set
+            {
+                _shortDescription = value;
+                RaisePropertyChanged("Child_ProductDescriptionShort");
+            }
+        }
+
+
+        // Date product first displayed [DateTime] displaybegindate
+        public override DateTime? DisplayBeginDate
+        {
+            get { return _displayBeginDate; }
+            set
+            {
+                _displayBeginDate = value;
+                RaisePropertyChanged("Child_DisplayBeginDate");
+            }
+        }
+
+        // Is the product taxable [bool] taxableproduct
+        public override bool? Taxable
+        {
+            get { return _taxable; }
+            set
+            {
+                _taxable = value;
+                RaisePropertyChanged("Child_TaxableProduct");
+            }
+        }
+
+        // Is the product hidden [bool] hideproduct
+        public override bool? Hidden
+        {
+            get { return _hidden; }
+            set
+            {
+                _hidden = value;
+                RaisePropertyChanged("Child_HideProduct");
+            }
+        }
+
+        // SEO Title [string] metatag_title
+        public override string MetaTagTitle
+        {
+            get { return _metaTagTitle; }
+            set
+            {
+                _metaTagTitle = value;
+                RaisePropertyChanged("Child_METATAG_Title");
+            }
+        }
+
+        // SEO Description [string] metatag_description
+        public override string MetaTagDescription
+        {
+            get { return _metaTagDescription; }
+            set
+            {
+                _metaTagDescription = value;
+                RaisePropertyChanged("Child_METAGAG_Description");
+            }
+        }
+
+        // SEO Photo alternative text [string] photo_alttext
+        public override string PhotoAltText
+        {
+            get { return _photoAltText; }
+            set
+            {
+                _photoAltText = value;
+                RaisePropertyChanged("Child_Photo_AltText");
+            }
+        }
+
+        // Is the product designated as a sale product [string] customfield1
+        public override string SaleText
+        {
+            get { return _saleText; }
+            set
+            {
+                _saleText = value;
+                RaisePropertyChanged("Child_CustomField1");
+            }
+        }
+
+        // Manufacturer of the product [string] productmanufacturer
+        public override string ItemVendor
+        {
+            get { return _itemVendor; }
+            set
+            {
+                _itemVendor = value;
+                RaisePropertyChanged("Child_ProductManufacturer");
+            }
+        }
+
+        // Price of product [float] productprice
+        //   ** Issues with Internet database requires this field
+        public override float? ProductPrice
+        {
+            get { return _productPrice; }
+            set
+            {
+                _productPrice = value;
+                RaisePropertyChanged("Child_ProductPrice");
+            }
+        }
+
+        // *****************************
+        // * New Fields and Properties *
+        // *****************************
+
+        // Number of shoes in stock [int] stockstatus
         private int _stockStatus;
         public int StockStatus
         {
             get { return _stockStatus; }
-            set { _stockStatus = value; }
+            set
+            {
+                _stockStatus = value;
+                RaisePropertyChanged("StockStatus");
+            }
         }
 
         // *************
@@ -59,7 +230,7 @@ namespace ISW.Model
             // GetHashCode
         public override int GetHashCode()
         {
-            return ID.GetHashCode();
+            return base.GetHashCode();
         }
 
             // Equals
@@ -127,6 +298,16 @@ namespace ISW.Model
             }
 
             return false;
+        }
+
+        // **************************
+        // * INotifyPropertyChanged *
+        // **************************
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void RaisePropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
     }
 }

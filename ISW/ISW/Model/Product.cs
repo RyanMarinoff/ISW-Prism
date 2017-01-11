@@ -22,7 +22,7 @@ using System.Collections.Generic;
 
 namespace ISW.Model
 {
-    abstract class Product : IEquatable<Product>
+    public abstract class Product : IEquatable<Product>
     {
         // ***************
         // * Constructor *
@@ -41,110 +41,59 @@ namespace ISW.Model
         // * Fields *
         // **********
 
-            // Product Code [string] productcode
-        private string _id;
-        public string ID
-        {
-            get { return _id; }
-        }
+        // Product Code [string] productcode
+        protected string _id;
+        public abstract string ID { get; }
 
-            // List of Category IDs assigned to the shoe [List<Category>] categoryids
-        private List<Category> _categories;
-        public List<Category> Categories
-        {
-            get { return _categories; }
-            set { _categories = value; }
-        }
+        // List of Category IDs assigned to the shoe [List<Category>] categoryids
+        protected List<Category> _categories;
+        public abstract List<Category> Categories { get; set; }
 
-            // List of Option IDs assigned to the shoe [List<Option>] optionids
-        private List<Option> _options;
-        public List<Option> Options
-        {
-            get { return _options; }
-            set { _options = value; }
-        }
+        // List of Option IDs assigned to the shoe [List<Option>] optionids
+        protected List<Option> _options;
+        public abstract List<Option> Options { get; set; }
 
-            // Product Name [string] productname
-        private string _name;
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        // Product Name [string] productname
+        protected string _name;
+        public abstract string Name { get; set; }
 
-            // Shortened version of the product name [string] productnameshort
-        private string _shortName;
-        public string ShortName
-        {
-            get { return _shortName; }
-            set { _shortName = value; }
-        }
+        // Shortened version of the product name [string] productnameshort
+        protected string _shortName;
+        public abstract string ShortName { get; set; }
 
-            // Short statement of product(mens/womens/accessories) [string] productdescriptionshort
-        private string _shortDescription;
-        public string ShortDescription
-        {
-            get { return _shortDescription; }
-            set { _shortDescription = value; }
-        }
+        // Short statement of product(mens/womens/accessories) [string] productdescriptionshort
+        protected string _shortDescription;
+        public abstract string ShortDescription { get; set; }
 
-            // Date product first displayed [DateTime] displaybegindate
-        private DateTime? _displayBeginDate;
-        public DateTime? DisplayBeginDate
-        {
-            get { return _displayBeginDate; }
-            set { _displayBeginDate = value; }
-        }
+        // Date product first displayed [DateTime] displaybegindate
+        protected DateTime? _displayBeginDate;
+        public abstract DateTime? DisplayBeginDate { get; set; }
 
-            // Is the product taxable [bool] taxableproduct
-        private bool? _taxable;
-        public bool? Taxable
-        {
-            get { return _taxable; }
-            set { _taxable = value; }
-        }
+        // Is the product taxable [bool] taxableproduct
+        protected bool? _taxable;
+        public abstract bool? Taxable { get; set; }
 
-            // Is the product hidden [bool] hideproduct
-        private bool? _hidden;
-        public bool? Hidden
-        {
-            get { return _hidden; }
-            set { _hidden = value; }
-        }
+        // Is the product hidden [bool] hideproduct
+        protected bool? _hidden;
+        public abstract bool? Hidden { get; set; }
 
-            // SEO Title [string] metatag_title
-        private string _metaTagTitle;
-        public string MetaTagTitle
-        {
-            get { return _metaTagTitle; }
-            set { _metaTagTitle = value; }
-        }
+        // SEO Title [string] metatag_title
+        protected string _metaTagTitle;
+        public abstract string MetaTagTitle { get; set; }
 
-            // SEO Description [string] metatag_description
-        private string _metaTagDescription;
-        public string MetaTagDescription
-        {
-            get { return _metaTagDescription; }
-            set { _metaTagDescription = value; }
-        }
+        // SEO Description [string] metatag_description
+        protected string _metaTagDescription;
+        public abstract string MetaTagDescription { get; set; }
 
-            // SEO Photo alternative text [string] photo_alttext
-        private string _photoAltText;
-        public string PhotoAltText
-        {
-            get { return _photoAltText; }
-            set { _photoAltText = value; }
-        }
+        // SEO Photo alternative text [string] photo_alttext
+        protected string _photoAltText;
+        public abstract string PhotoAltText { get; set; }
 
-            // Is the product designated as a sale product [string] customfield1
-        private string _saleText;
-        public string SaleText
-        {
-            get { return _saleText; }
-            set { _saleText = value; }
-        }
+        // Is the product designated as a sale product [string] customfield1
+        protected string _saleText;
+        public abstract string SaleText { get; set; }
 
-            // Manufacturer of the product [Vendor] productmanufacturer
+        // Manufacturer of the product [Vendor] productmanufacturer
         //private Vendor _itemVendor;
         //public Vendor ItemVendor
         //{
@@ -152,27 +101,24 @@ namespace ISW.Model
         //    set { _itemVendor = value; }
         //}
 
-            // Manufacturer of the product [string] productmanufacturer
-        private string _itemVendor;
-        public string ItemVendor
-        {
-            get { return _itemVendor; }
-            set { _itemVendor = value; }
-        }
+        // Manufacturer of the product [string] productmanufacturer
+        protected string _itemVendor;
+        public abstract string ItemVendor { get; set; }
 
-
-            // Price of product [float] productprice
-            //   ** Issues with Internet database requires this field
-        private float? _productPrice;
-        public float? ProductPrice
-        {
-            get { return _productPrice; }
-            set { _productPrice = value; }
-        }
+        // Price of product [float] productprice
+        //   ** Issues with Internet database requires this field
+        protected float? _productPrice;
+        public abstract float? ProductPrice { get; set; }
 
         // *************
         // * Overloads *
         // *************
+
+        // GetHashCode
+        public override int GetHashCode()
+        {
+            return _id.GetHashCode();
+        }
 
         public override bool Equals(object obj)
         {
@@ -185,13 +131,13 @@ namespace ISW.Model
         {
             if (other == default(Product))
                 return false;
-            return Equals(other.ID);
+            return Equals(other._id);
         }
 
         // *** Main Compairison Operator for Products! ***
         public bool Equals(string otherID)
         {
-            return string.Equals(ID, otherID);
+            return string.Equals(_id, otherID);
         }
 
         // Comparison Operators
@@ -233,36 +179,36 @@ namespace ISW.Model
         {
             if (this == update)
             {
-                Name = update.Name;
-                DisplayBeginDate = update.DisplayBeginDate;
-                Taxable = update.Taxable;
-                Hidden = update.Hidden;
-                ShortName = update.ShortName;
-                ShortDescription = update.ShortDescription;
-                MetaTagDescription = update.MetaTagDescription;
-                MetaTagTitle = update.MetaTagTitle;
-                PhotoAltText = update.PhotoAltText;
-                SaleText = update.SaleText;
-                ItemVendor = update.ItemVendor;
-                ProductPrice = update.ProductPrice;
+                _name = update._name;
+                _displayBeginDate = update._displayBeginDate;
+                _taxable = update._taxable;
+                _hidden = update._hidden;
+                _shortName = update._shortName;
+                _shortDescription = update._shortDescription;
+                _metaTagDescription = update._metaTagDescription;
+                _metaTagTitle = update._metaTagTitle;
+                _photoAltText = update._photoAltText;
+                _saleText = update._saleText;
+                _itemVendor = update._itemVendor;
+                _productPrice = update._productPrice;
 
                 // Do not update changes within Categories within Products
-                foreach (var category in update.Categories)
+                foreach (var category in update._categories)
                 {
-                    var index = Categories.FindIndex(x => x == category);
+                    var index = _categories.FindIndex(x => x == category);
                     if (index == -1)
                     {
-                        Categories.Add(category);
+                        _categories.Add(category);
                     }
                 }
 
                 // Do not update changes within Options within Products
-                foreach (var option in update.Options)
+                foreach (var option in update._options)
                 {
-                    var index = Options.FindIndex(x => x == option);
+                    var index = _options.FindIndex(x => x == option);
                     if (index == -1)
                     {
-                        Options.Add(option);
+                        _options.Add(option);
                     }
                 }
 
