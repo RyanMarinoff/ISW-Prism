@@ -10,7 +10,7 @@ using ISW.IoC;
 
 namespace ISW.ViewModel
 {
-    public class ProductViewModel
+    class ProductViewModel : BindableBase
     {
         public MyICommand DeleteCommand { get; set; }
 

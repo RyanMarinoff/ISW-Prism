@@ -4,12 +4,41 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ISW"
+        xmlns:views="clr-namespace:ISW.Views"
+        xmlns:viewModels="clr-namespace:ISW.ViewModel"
         mc:Ignorable="d"
         Title="{DynamicResource AppTitle}" Height="155.178" Width="301.861" Icon="{DynamicResource AppIcon}">
+
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModels:ProductViewModel}">
+            <views:ProductView/>
+        </DataTemplate>
+    </Window.Resources>
+
     <Grid>
-        
-        <!-- Testing Code -->
-        <!--TC--><Button x:Name="_btnTestProduct" Content="Test Product" HorizontalAlignment="Center" VerticalAlignment="Center" Width="103" Click="_btnTestProduct_Click"/>
-        <!-- End Testing Code -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="NavBar">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Load Product"
+                    Command="{Binding NavCommand}"
+                    CommandParameter="productList"
+                    Grid.Column="1" />
+        </Grid>
+        <Grid x:Name="MainContent" Grid.Row="1">
+            <ContentControl Content="{Binding CurrenViewModel}" />
+        </Grid>
     </Grid>
 </Window>

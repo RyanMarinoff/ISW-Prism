@@ -7,17 +7,17 @@ using System.Windows.Input;
 
 namespace ISW.IoC
 {
-    public class MyICommand : ICommand
+    public class MyICommand<T> : ICommand
     {
-        Action _TargetExecuteMethod;
-        Func<bool> _TargetCanExecuteMethod;
+        Action<T> _TargetExecuteMethod;
+        Func<T, bool> _TargetCanExecuteMethod;
 
-        public MyICommand(Action executeMethod)
+        public MyICommand(Action<T> executeMethod)
         {
             _TargetExecuteMethod = executeMethod;
         }
 
-        public MyICommand(Action executeMethod, Func<bool> canExecuteMethod)
+        public MyICommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod)
         {
             _TargetExecuteMethod = executeMethod;
             _TargetCanExecuteMethod = canExecuteMethod;
@@ -28,11 +28,13 @@ namespace ISW.IoC
             CanExecuteChanged(this, EventArgs.Empty);
         }
 
+        #region ICommand Members
         bool ICommand.CanExecute(object parameter)
         {
             if(_TargetCanExecuteMethod != null)
             {
-                return _TargetCanExecuteMethod();
+                T tparm = (T)parameter;
+                return _TargetCanExecuteMethod(tparm);
             }
             if(_TargetExecuteMethod != null)
             {
@@ -49,7 +51,11 @@ namespace ISW.IoC
         
         void ICommand.Execute(object parameter)
         {
-            _TargetExecuteMethod?.Invoke();
+            if(_TargetExecuteMethod != null)
+            {
+                _TargetExecuteMethod((T)parameter);
+            }
         }
     }
+    #endregion
 }

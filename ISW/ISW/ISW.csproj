@@ -55,7 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="IoC\BindableBase.cs" />
     <Compile Include="IoC\MyICommand.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="ProductData.xaml.cs">
       <DependentUpon>ProductData.xaml</DependentUpon>
     </Compile>
