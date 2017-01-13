@@ -17,6 +17,8 @@ namespace ISW
 
         private ProductViewModel productViewModel = new ProductViewModel();
 
+        private TestViewModel testViewModel = new TestViewModel();
+
         private BindableBase _CurrentViewModel;
 
         public BindableBase CurrentViewModel
@@ -31,9 +33,14 @@ namespace ISW
         {
             switch (destination)
             {
-                case "productList":
-                default:
+                case "test":
+                    CurrentViewModel = testViewModel;
+                    break;
+                case "product_list":
                     CurrentViewModel = productViewModel;
+                    break;
+                default:
+                    CurrentViewModel = null;
                     break;
             }
         }

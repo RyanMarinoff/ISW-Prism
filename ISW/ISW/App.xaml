@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ISW"
              xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="ISW.App"
-             StartupUri="MainWindow.xaml">
+             Startup="ApplicationStartup">
     <Application.Resources>
 
         <System:String x:Key="AppTitle">Reyers: Internet Sales Work</System:String>

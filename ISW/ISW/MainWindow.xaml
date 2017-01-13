@@ -7,7 +7,8 @@
         xmlns:views="clr-namespace:ISW.Views"
         xmlns:viewModels="clr-namespace:ISW.ViewModel"
         mc:Ignorable="d"
-        Title="{DynamicResource AppTitle}" Height="155.178" Width="301.861" Icon="{DynamicResource AppIcon}">
+        Title="{DynamicResource AppTitle}" Height="500" Width="400" 
+        Icon="{DynamicResource AppIcon}" WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <local:MainWindowViewModel/>
@@ -16,6 +17,10 @@
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModels:ProductViewModel}">
             <views:ProductView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModels:TestViewModel}">
+            <views:TestView/>
         </DataTemplate>
     </Window.Resources>
 
@@ -32,13 +37,17 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="Load Product"
+            <Button Content="Show Product List"
                     Command="{Binding NavCommand}"
-                    CommandParameter="productList"
-                    Grid.Column="1" />
+                    CommandParameter="product_list"
+                    Grid.Column="0" />
+            <Button Content="Test Button"
+                    Command="{Binding NavCommand}"
+                    CommandParameter="test"
+                    Grid.Column="2"/>
         </Grid>
         <Grid x:Name="MainContent" Grid.Row="1">
-            <ContentControl Content="{Binding CurrenViewModel}" />
+            <ContentControl Content="{Binding CurrentViewModel}" />
         </Grid>
     </Grid>
 </Window>

@@ -58,12 +58,13 @@
     <Compile Include="IoC\BindableBase.cs" />
     <Compile Include="IoC\MyICommand.cs" />
     <Compile Include="MainWindowViewModel.cs" />
-    <Compile Include="ProductData.xaml.cs">
-      <DependentUpon>ProductData.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\ProductViewModel.cs" />
+    <Compile Include="ViewModel\TestViewModel.cs" />
     <Compile Include="Views\ProductView.xaml.cs">
       <DependentUpon>ProductView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestView.xaml.cs">
+      <DependentUpon>TestView.xaml</DependentUpon>
     </Compile>
     <Compile Include="VML\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
@@ -79,11 +80,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ProductData.xaml">
+    <Page Include="Views\ProductView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProductView.xaml">
+    <Page Include="Views\TestView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

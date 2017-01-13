@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace ISW.IoC
 {
-    public class MyICommand<T> : ICommand
+    sealed public class MyICommand<T> : ICommand
     {
         Action<T> _TargetExecuteMethod;
         Func<T, bool> _TargetCanExecuteMethod;
@@ -51,10 +51,7 @@ namespace ISW.IoC
         
         void ICommand.Execute(object parameter)
         {
-            if(_TargetExecuteMethod != null)
-            {
-                _TargetExecuteMethod((T)parameter);
-            }
+            _TargetCanExecuteMethod?.Invoke((T)parameter);
         }
     }
     #endregion

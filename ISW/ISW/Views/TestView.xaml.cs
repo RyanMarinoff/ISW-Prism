@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ISW
+namespace ISW.Views
 {
     /// <summary>
-    /// Interaction logic for ProductData.xaml
+    /// Interaction logic for TestView.xaml
     /// </summary>
-    public partial class ProductData : Window
+    public partial class TestView : UserControl
     {
-        public ProductData()
+        public TestView()
         {
             InitializeComponent();
         }
