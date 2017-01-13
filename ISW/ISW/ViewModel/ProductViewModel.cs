@@ -12,12 +12,12 @@ namespace ISW.ViewModel
 {
     class ProductViewModel : BindableBase
     {
-        public MyICommand DeleteCommand { get; set; }
+        //public MyICommand DeleteCommand { get; set; }
 
         public ProductViewModel()
         {
             LoadProducts();
-            DeleteCommand = new MyICommand(OnDelete, CanDelete);
+            //DeleteCommand = new MyICommand(OnDelete, CanDelete);
         }
 
         public ObservableCollection<ParentProduct> Products { get; set; }
@@ -40,7 +40,7 @@ namespace ISW.ViewModel
             set
             {
                 _selectedProduct = value;
-                DeleteCommand.RaiseCanExecuteChanged();
+                //DeleteCommand.RaiseCanExecuteChanged();
             }
         }
 
