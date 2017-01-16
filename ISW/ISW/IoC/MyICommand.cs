@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ISW.IoC
@@ -44,7 +40,8 @@ namespace ISW.IoC
             return false;
         }
 
-        // Beware - should use weak references if command instance lifetime is longer than lifetime of UI objects that get hooked up to command
+        // Beware - should use weak references if command instance lifetime is 
+        // longer than lifetime of UI objects that get hooked up to command
 
         //Prism commands solve this in their implementation public event
         public event EventHandler CanExecuteChanged = delegate { };

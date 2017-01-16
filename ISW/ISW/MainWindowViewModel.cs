@@ -37,10 +37,8 @@ namespace ISW
                     CurrentViewModel = testViewModel;
                     break;
                 case "product_list":
-                    CurrentViewModel = productViewModel;
-                    break;
                 default:
-                    CurrentViewModel = null;
+                    CurrentViewModel = productViewModel;
                     break;
             }
         }
