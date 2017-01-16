@@ -17,12 +17,13 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  *                                                                        *
  **************************************************************************/
+using ISW.IoC;
 using System;
 using System.Collections.Generic;
 
 namespace ISW.Model
 {
-    public abstract class Product : IEquatable<Product>
+    abstract class Product : BindableBase, IEquatable<Product>
     {
         // ***************
         // * Constructor *

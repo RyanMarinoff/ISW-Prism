@@ -21,7 +21,7 @@ using System;
 
 namespace ISW.Model
 {
-    public class Category : IEquatable<Category>
+    class Category : IEquatable<Category>
     {
         public Category(int id)
         {

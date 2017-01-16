@@ -7,7 +7,7 @@
     <Application.Resources>
 
         <System:String x:Key="AppTitle">Reyers: Internet Sales Work</System:String>
-        <BitmapImage x:Key="AppIcon" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Betty\Source\Repos\Prism\ISW-Prism\ISW\ISW\Images\ReyersLogo_1.ico"/>
+        <BitmapImage x:Key="AppIcon" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Images\ReyersLogo_1.ico"/>
 
     </Application.Resources>
 </Application>

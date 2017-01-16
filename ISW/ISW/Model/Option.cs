@@ -21,7 +21,7 @@ using System;
 
 namespace ISW.Model
 {
-    public class Option : IEquatable<Option>
+    class Option : IEquatable<Option>
     {
         public Option(int id)
         {

@@ -21,7 +21,7 @@ using System;
 
 namespace ISW.Model
 {
-    public class Vendor : IEquatable<Vendor>
+    class Vendor : IEquatable<Vendor>
     {
         // all vendors must contain an id, which cannot change.
         public Vendor(int id)

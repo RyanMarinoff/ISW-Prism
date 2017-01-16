@@ -23,7 +23,7 @@ using System.ComponentModel;
 
 namespace ISW.Model
 {
-    public class ChildProduct : Product, IEquatable<ChildProduct>, INotifyPropertyChanged
+    class ChildProduct : Product, IEquatable<ChildProduct>, INotifyPropertyChanged
     {
         // ***************
         // * Constructor *

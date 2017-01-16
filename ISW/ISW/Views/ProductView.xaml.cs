@@ -23,7 +23,6 @@ namespace ISW.Views
         public ProductView()
         {
             InitializeComponent();
-            //this.DataContext = new ISW.ViewModel.ProductViewModel();
         }
     }
 }
