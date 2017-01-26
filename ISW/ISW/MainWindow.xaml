@@ -8,7 +8,7 @@
         xmlns:viewModels="clr-namespace:ISW.ViewModel"
         mc:Ignorable="d"
         Title="{DynamicResource AppTitle}" Height="500" Width="400" 
-        Icon="{DynamicResource AppIcon}" WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <local:MainWindowViewModel/>
