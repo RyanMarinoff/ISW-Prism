@@ -48,7 +48,7 @@ namespace ISW.IoC
         
         void ICommand.Execute(object parameter)
         {
-            _TargetCanExecuteMethod?.Invoke((T)parameter);
+            _TargetExecuteMethod?.Invoke((T)parameter);
         }
     }
     #endregion
