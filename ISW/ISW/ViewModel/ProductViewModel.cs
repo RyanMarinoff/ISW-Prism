@@ -12,47 +12,32 @@ namespace ISW.ViewModel
 {
     class ProductViewModel : BindableBase
     {
-        //public MyICommand DeleteCommand { get; set; }
-
         public ProductViewModel()
         {
-            //DeleteCommand = new MyICommand(OnDelete, CanDelete);
+            LoadProducts();
         }
 
-        //public ObservableCollection<ParentProduct> Products { get; set; }
+        public ObservableCollection<ParentProduct> Products { get; set; }
 
-        //public void LoadProducts()
-        //{
-        //    ObservableCollection<ParentProduct> products = new ObservableCollection<ParentProduct>(IDataLoader.Products);
+        public void LoadProducts()
+        {
+            ObservableCollection<ParentProduct> products = new ObservableCollection<ParentProduct>(IDataLoader.Products);
 
-        //    Products = products;
-        //}
+            Products = products;
+        }
 
-        //private ParentProduct _selectedProduct;
+        private ParentProduct _selectedProduct;
 
-        //public ParentProduct SelectedProduct
-        //{
-        //    get
-        //    {
-        //        return _selectedProduct;
-        //    }
-        //    set
-        //    {
-        //        _selectedProduct = value;
-        //        //DeleteCommand.RaiseCanExecuteChanged();
-        //    }
-        //}
-
-        //private void OnDelete()
-        //{
-        //    Products.Remove(SelectedProduct);
-        //}
-
-        //private bool CanDelete()
-        //{
-        //    return SelectedProduct as Product != default(ParentProduct);
-        //}
-
-
+        public ParentProduct SelectedProduct
+        {
+            get
+            {
+                return _selectedProduct;
+            }
+            set
+            {
+                _selectedProduct = value;
+            }
+        }
     }
 }

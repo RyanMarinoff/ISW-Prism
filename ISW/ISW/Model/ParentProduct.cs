@@ -131,6 +131,14 @@ namespace ISW.Model
             }
         }
 
+        public bool IsHidden
+        {
+            get
+            {
+                return _hidden == true;
+            }
+        }
+
         // SEO Title [string] metatag_title
         public override string MetaTagTitle
         {
@@ -249,6 +257,23 @@ namespace ISW.Model
             {
                 _metaTagKeywords = value;
                 RaisePropertyChanged("METATAG_Keywords");
+            }
+        }
+
+        // ************************
+        // * additional accessors *
+        // ************************
+
+        public int GetInventoryCount
+        {
+            get
+            {
+                int count = 0;
+                foreach(ChildProduct child in _childProducts)
+                {
+                    count += child.StockStatus;
+                }
+                return count;
             }
         }
 
