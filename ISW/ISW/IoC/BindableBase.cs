@@ -23,7 +23,7 @@ using System.Runtime.CompilerServices;
 
 namespace ISW.IoC
 {
-    class BindableBase : INotifyPropertyChanged
+    public abstract class BindableBase : INotifyPropertyChanged
     {
         protected virtual void SetProperty<T>(ref T member, T val, 
             [CallerMemberName] string propertyName = null)

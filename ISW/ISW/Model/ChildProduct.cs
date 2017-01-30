@@ -20,11 +20,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace ISW.Model
 {
-    class ChildProduct : Product, INotifyPropertyChanged
+    class ChildProduct : Product
     {
         // ***************
         // * Constructor *
@@ -53,7 +52,7 @@ namespace ISW.Model
             set
             {
                 _categories = value;
-                RaisePropertyChanged("Child_CategoryIDs");
+                //RaisePropertyChanged("Child_CategoryIDs");
             }
         }
 
@@ -64,7 +63,7 @@ namespace ISW.Model
             set
             {
                 _options = value;
-                RaisePropertyChanged("Child_OptionIDs");
+                //RaisePropertyChanged("Child_OptionIDs");
             }
         }
 
@@ -75,7 +74,7 @@ namespace ISW.Model
             set
             {
                 _name = value;
-                RaisePropertyChanged("Child_ProductName");
+                //RaisePropertyChanged("Child_ProductName");
             }
         }
 
@@ -86,7 +85,7 @@ namespace ISW.Model
             set
             {
                 _shortName = value;
-                RaisePropertyChanged("Child_ProductNameShort");
+                //RaisePropertyChanged("Child_ProductNameShort");
             }
         }
 
@@ -97,7 +96,7 @@ namespace ISW.Model
             set
             {
                 _shortDescription = value;
-                RaisePropertyChanged("Child_ProductDescriptionShort");
+                //RaisePropertyChanged("Child_ProductDescriptionShort");
             }
         }
 
@@ -109,7 +108,7 @@ namespace ISW.Model
             set
             {
                 _displayBeginDate = value;
-                RaisePropertyChanged("Child_DisplayBeginDate");
+                //RaisePropertyChanged("Child_DisplayBeginDate");
             }
         }
 
@@ -120,7 +119,7 @@ namespace ISW.Model
             set
             {
                 _taxable = value;
-                RaisePropertyChanged("Child_TaxableProduct");
+                //RaisePropertyChanged("Child_TaxableProduct");
             }
         }
 
@@ -131,7 +130,7 @@ namespace ISW.Model
             set
             {
                 _hidden = value;
-                RaisePropertyChanged("Child_HideProduct");
+                //RaisePropertyChanged("Child_HideProduct");
             }
         }
 
@@ -142,7 +141,7 @@ namespace ISW.Model
             set
             {
                 _metaTagTitle = value;
-                RaisePropertyChanged("Child_METATAG_Title");
+                //RaisePropertyChanged("Child_METATAG_Title");
             }
         }
 
@@ -153,7 +152,7 @@ namespace ISW.Model
             set
             {
                 _metaTagDescription = value;
-                RaisePropertyChanged("Child_METAGAG_Description");
+                //RaisePropertyChanged("Child_METAGAG_Description");
             }
         }
 
@@ -164,7 +163,7 @@ namespace ISW.Model
             set
             {
                 _photoAltText = value;
-                RaisePropertyChanged("Child_Photo_AltText");
+                //RaisePropertyChanged("Child_Photo_AltText");
             }
         }
 
@@ -175,7 +174,7 @@ namespace ISW.Model
             set
             {
                 _saleText = value;
-                RaisePropertyChanged("Child_CustomField1");
+                //RaisePropertyChanged("Child_CustomField1");
             }
         }
 
@@ -186,7 +185,7 @@ namespace ISW.Model
             set
             {
                 _itemVendor = value;
-                RaisePropertyChanged("Child_ProductManufacturer");
+                //RaisePropertyChanged("Child_ProductManufacturer");
             }
         }
 
@@ -198,7 +197,7 @@ namespace ISW.Model
             set
             {
                 _productPrice = value;
-                RaisePropertyChanged("Child_ProductPrice");
+                //RaisePropertyChanged("Child_ProductPrice");
             }
         }
 
@@ -214,7 +213,7 @@ namespace ISW.Model
             set
             {
                 _stockStatus = value;
-                RaisePropertyChanged("StockStatus");
+                //RaisePropertyChanged("StockStatus");
             }
         }
 
@@ -304,11 +303,11 @@ namespace ISW.Model
         // **************************
         // * INotifyPropertyChanged *
         // **************************
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
-        private void RaisePropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        //private void RaisePropertyChanged(string property)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        //}
     }
 }

@@ -25,7 +25,7 @@ using System.Collections.Generic;
 
 namespace ISW.Model
 {
-    abstract class Product
+    abstract class Product : BindableBase
     {
         // ***************
         // * Constructor *

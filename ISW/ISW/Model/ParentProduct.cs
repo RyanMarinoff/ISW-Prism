@@ -18,13 +18,13 @@
  *                                                                        *
  **************************************************************************/
 
+using ISW.IoC;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace ISW.Model
 {
-    class ParentProduct : Product, INotifyPropertyChanged
+    class ParentProduct : Product
     {
         // ***************
         // * Constructor *
@@ -52,7 +52,7 @@ namespace ISW.Model
             set
             {
                 _categories = value;
-                RaisePropertyChanged("CategoryIDs");
+                //RaisePropertyChanged("CategoryIDs");
             }
         }
 
@@ -63,7 +63,7 @@ namespace ISW.Model
             set
             {
                 _options = value;
-                RaisePropertyChanged("OptionIDs");
+                //RaisePropertyChanged("OptionIDs");
             }
         }
 
@@ -73,7 +73,7 @@ namespace ISW.Model
             set
             {
                 _name = value;
-                RaisePropertyChanged("ProductName");
+                //RaisePropertyChanged("ProductName");
             }
         }
 
@@ -84,7 +84,7 @@ namespace ISW.Model
             set
             {
                 _shortName = value;
-                RaisePropertyChanged("ProductNameShort");
+                //RaisePropertyChanged("ProductNameShort");
             }
         }
 
@@ -95,7 +95,7 @@ namespace ISW.Model
             set
             {
                 _shortDescription = value;
-                RaisePropertyChanged("ProductDescriptionShort");
+                //RaisePropertyChanged("ProductDescriptionShort");
             }
         }
 
@@ -106,7 +106,7 @@ namespace ISW.Model
             set
             {
                 _displayBeginDate = value;
-                RaisePropertyChanged("DisplayBeginDate");
+                //RaisePropertyChanged("DisplayBeginDate");
             }
         }
 
@@ -117,7 +117,7 @@ namespace ISW.Model
             set
             {
                 _taxable = value;
-                RaisePropertyChanged("TaxableProduct");
+                //RaisePropertyChanged("TaxableProduct");
             }
         }
 
@@ -128,7 +128,7 @@ namespace ISW.Model
             set
             {
                 _hidden = value;
-                RaisePropertyChanged("HideProduct");
+                //RaisePropertyChanged("HideProduct");
             }
         }
 
@@ -147,7 +147,7 @@ namespace ISW.Model
             set
             {
                 _metaTagTitle = value;
-                RaisePropertyChanged("METATAG_Title");
+                //RaisePropertyChanged("METATAG_Title");
             }
         }
 
@@ -158,7 +158,7 @@ namespace ISW.Model
             set
             {
                 _metaTagDescription = value;
-                RaisePropertyChanged("METAGAG_Description");
+                //RaisePropertyChanged("METAGAG_Description");
             }
         }
 
@@ -169,7 +169,7 @@ namespace ISW.Model
             set
             {
                 _photoAltText = value;
-                RaisePropertyChanged("Photo_AltText");
+                //RaisePropertyChanged("Photo_AltText");
             }
         }
 
@@ -180,7 +180,7 @@ namespace ISW.Model
             set
             {
                 _saleText = value;
-                RaisePropertyChanged("CustomField1");
+                //RaisePropertyChanged("CustomField1");
             }
         }
 
@@ -191,7 +191,7 @@ namespace ISW.Model
             set
             {
                 _itemVendor = value;
-                RaisePropertyChanged("ProductManufacturer");
+                //RaisePropertyChanged("ProductManufacturer");
             }
         }
 
@@ -203,7 +203,7 @@ namespace ISW.Model
             set
             {
                 _productPrice = value;
-                RaisePropertyChanged("ProductPrice");
+                //RaisePropertyChanged("ProductPrice");
             }
         }
 
@@ -219,7 +219,7 @@ namespace ISW.Model
             set
             {
                 _childProducts = value;
-                RaisePropertyChanged("IsChildOfProductCode");
+                //RaisePropertyChanged("IsChildOfProductCode");
             }
         }
 
@@ -233,7 +233,7 @@ namespace ISW.Model
             set
             {
                 _onHomePage = value;
-                RaisePropertyChanged("HomePage_Section");
+                //RaisePropertyChanged("HomePage_Section");
             }
         }
 
@@ -245,7 +245,7 @@ namespace ISW.Model
             set
             {
                 _description = value;
-                RaisePropertyChanged("ProductDescription");
+                //RaisePropertyChanged("ProductDescription");
             }
         }
 
@@ -257,7 +257,7 @@ namespace ISW.Model
             set
             {
                 _metaTagKeywords = value;
-                RaisePropertyChanged("METATAG_Keywords");
+                //RaisePropertyChanged("METATAG_Keywords");
             }
         }
 
@@ -379,11 +379,11 @@ namespace ISW.Model
         // **************************
         // * INotifyPropertyChanged *
         // **************************
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
-        private void RaisePropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        //private void RaisePropertyChanged(string property)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        //}
     }
 }
