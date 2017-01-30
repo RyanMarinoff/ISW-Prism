@@ -24,7 +24,7 @@ using System.ComponentModel;
 
 namespace ISW.Model
 {
-    class ParentProduct : Product, IEquatable<ParentProduct>, INotifyPropertyChanged
+    class ParentProduct : Product, INotifyPropertyChanged
     {
         // ***************
         // * Constructor *
@@ -309,37 +309,37 @@ namespace ISW.Model
         }
 
         // Comparison Operators
-        public static bool operator ==(ParentProduct a, ParentProduct b)
-        {
-            if (ReferenceEquals(a, b))
-                return true;
-            return a.Equals(b);
-        }
+        //public static bool operator ==(ParentProduct a, ParentProduct b)
+        //{
+        //    if (ReferenceEquals(a, b))
+        //        return true;
+        //    return a.Equals(b);
+        //}
 
-        public static bool operator !=(ParentProduct a, ParentProduct b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(ParentProduct a, ParentProduct b)
+        //{
+        //    return !(a == b);
+        //}
 
-        public static bool operator ==(ParentProduct a, string b)
-        {
-            return a.Equals(b);
-        }
+        //public static bool operator ==(ParentProduct a, string b)
+        //{
+        //    return a.Equals(b);
+        //}
 
-        public static bool operator !=(ParentProduct a, string b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(ParentProduct a, string b)
+        //{
+        //    return !(a == b);
+        //}
 
-        public static bool operator ==(string a, ParentProduct b)
-        {
-            return (b == a);
-        }
+        //public static bool operator ==(string a, ParentProduct b)
+        //{
+        //    return (b == a);
+        //}
 
-        public static bool operator !=(string a, ParentProduct b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(string a, ParentProduct b)
+        //{
+        //    return !(a == b);
+        //}
 
         // ********************
         // * Member Functions *

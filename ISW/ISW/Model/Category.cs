@@ -22,7 +22,7 @@ using System;
 
 namespace ISW.Model
 {
-    class Category : IEquatable<Category>
+    class Category
     {
         public Category(int id)
         {
@@ -266,27 +266,27 @@ namespace ISW.Model
             return _id.Equals(otherID);
         }
 
-        public static bool operator ==(Category a, Category b)
-        {
-            if (ReferenceEquals(a, b))
-                return true;
-            return a.Equals(b);
-        }
+        //public static bool operator ==(Category a, Category b)
+        //{
+        //    if (ReferenceEquals(a, b))
+        //        return true;
+        //    return a.Equals(b);
+        //}
 
-        public static bool operator !=(Category a, Category b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(Category a, Category b)
+        //{
+        //    return !(a == b);
+        //}
 
-        public static bool operator ==(Category a, int b)
-        {
-            return a.ID == b;
-        }
+        //public static bool operator ==(Category a, int b)
+        //{
+        //    return a.ID == b;
+        //}
 
-        public static bool operator !=(Category a, int b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(Category a, int b)
+        //{
+        //    return !(a == b);
+        //}
 
         // ********************
         // * Member Functions *

@@ -22,7 +22,7 @@ using System;
 
 namespace ISW.Model
 {
-    class Option : IEquatable<Option>
+    class Option
     {
         public Option(int id)
         {
@@ -90,36 +90,36 @@ namespace ISW.Model
             return _id.Equals(otherID);
         }
 
-        public static bool operator ==(Option a, Option b)
-        {
-            if (ReferenceEquals(a, b))
-                return true;
-            return a.Equals(b);
-        }
+        //public static bool operator ==(Option a, Option b)
+        //{
+        //    if (ReferenceEquals(a, b))
+        //        return true;
+        //    return a.Equals(b);
+        //}
 
-        public static bool operator !=(Option a, Option b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(Option a, Option b)
+        //{
+        //    return !(a == b);
+        //}
 
-        public static bool operator ==(Option a, int b)
-        {
-            return a.ID == b;
-        }
+        //public static bool operator ==(Option a, int b)
+        //{
+        //    return a.ID == b;
+        //}
 
-        public static bool operator !=(Option a, int b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(Option a, int b)
+        //{
+        //    return !(a == b);
+        //}
 
-        public static bool operator ==(int a, Option b)
-        {
-            return b == a;
-        }
-        public static bool operator !=(int a, Option b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator ==(int a, Option b)
+        //{
+        //    return b == a;
+        //}
+        //public static bool operator !=(int a, Option b)
+        //{
+        //    return !(a == b);
+        //}
 
         internal bool UpdateData(Option option)
         {

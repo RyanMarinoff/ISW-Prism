@@ -25,7 +25,7 @@ using System.Collections.Generic;
 
 namespace ISW.Model
 {
-    abstract class Product : BindableBase, IEquatable<Product>
+    abstract class Product
     {
         // ***************
         // * Constructor *
@@ -144,36 +144,36 @@ namespace ISW.Model
         }
 
         // Comparison Operators
-        public static bool operator ==(Product a, Product b)
-        {
-            if (ReferenceEquals(a, b))
-                return true;
-            return a.Equals(b);
-        }
-        public static bool operator !=(Product a, Product b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator ==(Product a, Product b)
+        //{
+        //    if (ReferenceEquals(a, b))
+        //        return true;
+        //    return a.Equals(b);
+        //}
+        //public static bool operator !=(Product a, Product b)
+        //{
+        //    return !(a == b);
+        //}
 
-        public static bool operator ==(Product a, string b)
-        {
-            return a.Equals(b);
-        }
+        //public static bool operator ==(Product a, string b)
+        //{
+        //    return a.Equals(b);
+        //}
 
-        public static bool operator !=(Product a, string b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(Product a, string b)
+        //{
+        //    return !(a == b);
+        //}
 
-        public static bool operator ==(string a, Product b)
-        {
-            return (b == a);
-        }
+        //public static bool operator ==(string a, Product b)
+        //{
+        //    return (b == a);
+        //}
 
-        public static bool operator !=(string a, Product b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(string a, Product b)
+        //{
+        //    return !(a == b);
+        //}
         // *******************
         // * Member Fuctions *
         // *******************

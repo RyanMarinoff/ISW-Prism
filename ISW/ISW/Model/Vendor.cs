@@ -22,7 +22,7 @@ using System;
 
 namespace ISW.Model
 {
-    class Vendor : IEquatable<Vendor>
+    class Vendor
     {
         // all vendors must contain an id, which cannot change.
         public Vendor(int id)
@@ -82,36 +82,36 @@ namespace ISW.Model
             return _id.Equals(otherID);
         }
 
-        public static bool operator ==(Vendor a, Vendor b)
-        {
-            if (ReferenceEquals(a, b))
-                return true;
-            return a.Equals(b);
-        }
+        //public static bool operator ==(Vendor a, Vendor b)
+        //{
+        //    if (ReferenceEquals(a, b))
+        //        return true;
+        //    return a.Equals(b);
+        //}
 
-        public static bool operator !=(Vendor a, Vendor b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(Vendor a, Vendor b)
+        //{
+        //    return !(a == b);
+        //}
 
-        public static bool operator ==(Vendor a, int b)
-        {
-            return a.ID == b;
-        }
+        //public static bool operator ==(Vendor a, int b)
+        //{
+        //    return a.ID == b;
+        //}
 
-        public static bool operator !=(Vendor a, int b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(Vendor a, int b)
+        //{
+        //    return !(a == b);
+        //}
 
-        public static bool operator ==(int a, Vendor b)
-        {
-            return b == a;
-        }
+        //public static bool operator ==(int a, Vendor b)
+        //{
+        //    return b == a;
+        //}
 
-        public static bool operator !=(int a, Vendor b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(int a, Vendor b)
+        //{
+        //    return !(a == b);
+        //}
     }
 }

@@ -22,7 +22,7 @@ using System;
 
 namespace ISW.Model
 {
-    class OptionCategory : IEquatable<OptionCategory>
+    class OptionCategory
     {
         // ***************
         // * Constructor *
@@ -89,36 +89,36 @@ namespace ISW.Model
         }
 
             // Comparison Operator
-        public static bool operator ==(OptionCategory a, OptionCategory b)
-        {
-            if (ReferenceEquals(a, b))
-                return true;
-            return a.Equals(b);
-        }
+        //public static bool operator ==(OptionCategory a, OptionCategory b)
+        //{
+        //    if (ReferenceEquals(a, b))
+        //        return true;
+        //    return a.Equals(b);
+        //}
 
-        public static bool operator !=(OptionCategory a, OptionCategory b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(OptionCategory a, OptionCategory b)
+        //{
+        //    return !(a == b);
+        //}
 
-        public static bool operator ==(OptionCategory a, int b)
-        {
-            return a.ID == b;
-        }
+        //public static bool operator ==(OptionCategory a, int b)
+        //{
+        //    return a.ID == b;
+        //}
 
-        public static bool operator !=(OptionCategory a, int b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(OptionCategory a, int b)
+        //{
+        //    return !(a == b);
+        //}
 
-        public static bool operator ==(int a, OptionCategory b)
-        {
-            return b == a;
-        }
+        //public static bool operator ==(int a, OptionCategory b)
+        //{
+        //    return b == a;
+        //}
 
-        public static bool operator !=(int a, OptionCategory b)
-        {
-            return !(a == b);
-        }
+        //public static bool operator !=(int a, OptionCategory b)
+        //{
+        //    return !(a == b);
+        //}
     }
 }

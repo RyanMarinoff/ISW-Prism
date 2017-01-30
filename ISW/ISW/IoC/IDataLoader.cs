@@ -56,7 +56,7 @@ namespace ISW.IoC
         {
             get
             {
-                if (IData.Categories != null)
+                if (!IData.Categories.Equals(null))
                     return IData.Categories.Count;
                 else
                     return -1;
@@ -66,7 +66,7 @@ namespace ISW.IoC
         {
             get
             {
-                if (IData.OptionCategories != null)
+                if (!IData.OptionCategories.Equals(null))
                     return IData.OptionCategories.Count;
                 else
                     return -1;
@@ -76,7 +76,7 @@ namespace ISW.IoC
         {
             get
             {
-                if (IData.Options != null)
+                if (!IData.Options.Equals(null))
                     return IData.Options.Count;
                 else
                     return -1;
@@ -86,7 +86,7 @@ namespace ISW.IoC
         {
             get
             {
-                if (IData.Vendors != null)
+                if (!IData.Vendors.Equals(null))
                     return IData.Vendors.Count;
                 else
                     return -1;
@@ -96,7 +96,7 @@ namespace ISW.IoC
         {
             get
             {
-                if (IData.Products != null)
+                if (!IData.Products.Equals(null))
                     return IData.Products.Count;
                 else
                     return -1;
@@ -111,7 +111,7 @@ namespace ISW.IoC
         public static void LoadOptionCategories(string categoryFile)
         {
             // Initialize OptionCategories
-            if (IData.OptionCategories == null)
+            if (IData.OptionCategories.Equals(null))
                 IData.OptionCategories = new List<OptionCategory>();
 
             // The raw data from the CSV file
@@ -154,11 +154,11 @@ namespace ISW.IoC
         public static void LoadOptions(string optionFile)
         {
             // Check for required data
-            if (IData.OptionCategories == null)
+            if (IData.OptionCategories.Equals(null))
                 throw new Exception("OptionCatagories not ready for Options");
 
             // Initialize Options
-            if (IData.Options == null)
+            if (IData.Options.Equals(null))
                 IData.Options = new List<Option>();
 
             // The raw data from the CSV file
@@ -217,7 +217,7 @@ namespace ISW.IoC
         public static void LoadCategories(string categoryFile)
         {
             // Initialize Categories
-            if (IData.Categories == null)
+            if (IData.Categories.Equals(null))
                 IData.Categories = new List<Category>();
 
             // The raw data from the CSV file
@@ -488,15 +488,15 @@ namespace ISW.IoC
         public static void LoadProducts(string productFile)
         {
             // Check for required loaded data
-            if (IData.Categories == null)
+            if (IData.Categories.Equals(null))
                 throw new Exception("Categories Not Ready for Products");
-            if (IData.Options == null)
+            if (IData.Options.Equals(null))
                 throw new Exception("Options Not Ready for Products");
-            if (IData.Vendors == null)
+            if (IData.Vendors.Equals(null))
                 throw new Exception("Vendors Not Ready for Products");
 
             // Initialize Products
-            if (IData.Products == null)
+            if (IData.Products.Equals(null))
                 IData.Products = new List<ParentProduct>();
 
             // The raw data from the CSV file
