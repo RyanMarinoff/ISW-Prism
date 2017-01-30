@@ -17,10 +17,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  *                                                                        *
  **************************************************************************/
-using Microsoft.Win32;
-using System.Windows;
 
-using ISW.IoC;
+using System.Windows;
 
 namespace ISW
 {
