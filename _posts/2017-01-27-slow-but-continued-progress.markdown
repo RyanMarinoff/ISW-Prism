@@ -12,5 +12,3 @@ The program progress has stalled for a while. More shoes arrived within the stor
 ### Current Status and Future
 
 As of right now, the status of the application is fragmented. All issues with the application have been solved to this point, and a new view was created to test an aspect of the new directives. A quick and dirty solution may need to be developed to obtain the information needed to complete the tasks assigned. The tutorials currently used have become fragmented as well. It appears that once you go beyond a point within the tutorials, additional resources outside of what is covered within the tutorial are required. I have done some research today on a supplemental tutorial series. I have found that Pluralsight and Microsoft contain a few resources that may be helpful. I will access these resources, using this same repository learning branch for code testing, and hope to complete this project within the next 3 months.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/C60szyXTjfY" frameborder="0" allowfullscreen></iframe>
