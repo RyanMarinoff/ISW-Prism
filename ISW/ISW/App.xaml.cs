@@ -2,6 +2,8 @@
 using Microsoft.Win32;
 using System.Windows;
 
+using ISW.Views;
+
 namespace ISW
 {
     /// <summary>
@@ -9,17 +11,14 @@ namespace ISW
     /// </summary>
     public partial class App : Application
     {
-        private void ApplicationStartup(object sender, StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
-            // Disable shutdown when the dialog closes
-            Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-
             if (LoadData())
             {
-                var mainWindow = new MainWindow();
-                Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
-                Current.MainWindow = mainWindow;
-                mainWindow.Show();
+
+                base.OnStartup(e);
+                Bootstrapper bs = new Bootstrapper();
+                bs.Run();
             }
             else
             {

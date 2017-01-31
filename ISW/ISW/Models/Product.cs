@@ -17,13 +17,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  *                                                                        *
  **************************************************************************/
-
-using ISW.IoC;
-
+ 
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 
-namespace ISW.Model
+namespace ISW.Models
 {
     abstract class Product : BindableBase
     {
@@ -214,6 +213,8 @@ namespace ISW.Model
                         _options.Add(option);
                     }
                 }
+
+                OnPropertyChanged(() => ID);
 
                 return true;
             }

@@ -1,13 +1,7 @@
-﻿<Application
+﻿<Application x:Class="ISW.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ISW"
-             xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="ISW.App"
-             Startup="ApplicationStartup">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
-
-        <System:String x:Key="AppTitle">Reyers: Internet Sales Work</System:String>
-        <BitmapImage x:Key="AppIcon" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Images\ReyersLogo_1.ico"/>
 
     </Application.Resources>
 </Application>

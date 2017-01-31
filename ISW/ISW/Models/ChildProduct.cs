@@ -21,7 +21,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ISW.Model
+namespace ISW.Models
 {
     class ChildProduct : Product
     {
@@ -51,8 +51,8 @@ namespace ISW.Model
             get { return _categories; }
             set
             {
-                _categories = value;
-                //RaisePropertyChanged("Child_CategoryIDs");
+                SetProperty(ref _categories, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -62,8 +62,8 @@ namespace ISW.Model
             get { return _options; }
             set
             {
-                _options = value;
-                //RaisePropertyChanged("Child_OptionIDs");
+                SetProperty(ref _options, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -73,8 +73,8 @@ namespace ISW.Model
             get { return _name; }
             set
             {
-                _name = value;
-                //RaisePropertyChanged("Child_ProductName");
+                SetProperty(ref _name, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -84,8 +84,8 @@ namespace ISW.Model
             get { return _shortName; }
             set
             {
-                _shortName = value;
-                //RaisePropertyChanged("Child_ProductNameShort");
+                SetProperty(ref _shortName, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -95,8 +95,8 @@ namespace ISW.Model
             get { return _shortDescription; }
             set
             {
-                _shortDescription = value;
-                //RaisePropertyChanged("Child_ProductDescriptionShort");
+                SetProperty(ref _shortDescription, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -107,8 +107,8 @@ namespace ISW.Model
             get { return _displayBeginDate; }
             set
             {
-                _displayBeginDate = value;
-                //RaisePropertyChanged("Child_DisplayBeginDate");
+                SetProperty(ref _displayBeginDate, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -118,8 +118,8 @@ namespace ISW.Model
             get { return _taxable; }
             set
             {
-                _taxable = value;
-                //RaisePropertyChanged("Child_TaxableProduct");
+                SetProperty(ref _taxable, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -129,8 +129,8 @@ namespace ISW.Model
             get { return _hidden; }
             set
             {
-                _hidden = value;
-                //RaisePropertyChanged("Child_HideProduct");
+                SetProperty(ref _hidden, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -140,8 +140,8 @@ namespace ISW.Model
             get { return _metaTagTitle; }
             set
             {
-                _metaTagTitle = value;
-                //RaisePropertyChanged("Child_METATAG_Title");
+                SetProperty(ref _metaTagTitle, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -151,8 +151,8 @@ namespace ISW.Model
             get { return _metaTagDescription; }
             set
             {
-                _metaTagDescription = value;
-                //RaisePropertyChanged("Child_METAGAG_Description");
+                SetProperty(ref _metaTagDescription, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -162,8 +162,8 @@ namespace ISW.Model
             get { return _photoAltText; }
             set
             {
-                _photoAltText = value;
-                //RaisePropertyChanged("Child_Photo_AltText");
+                SetProperty(ref _photoAltText, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -173,8 +173,8 @@ namespace ISW.Model
             get { return _saleText; }
             set
             {
-                _saleText = value;
-                //RaisePropertyChanged("Child_CustomField1");
+                SetProperty(ref _saleText, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -184,8 +184,8 @@ namespace ISW.Model
             get { return _itemVendor; }
             set
             {
-                _itemVendor = value;
-                //RaisePropertyChanged("Child_ProductManufacturer");
+                SetProperty(ref _itemVendor, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -196,8 +196,8 @@ namespace ISW.Model
             get { return _productPrice; }
             set
             {
-                _productPrice = value;
-                //RaisePropertyChanged("Child_ProductPrice");
+                SetProperty(ref _productPrice, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -212,8 +212,8 @@ namespace ISW.Model
             get { return _stockStatus; }
             set
             {
-                _stockStatus = value;
-                //RaisePropertyChanged("StockStatus");
+                SetProperty(ref _stockStatus, value);
+                OnPropertyChanged(() => ID);
             }
         }
 
@@ -288,7 +288,7 @@ namespace ISW.Model
         // Update Function
         public bool UpdateData(ChildProduct update)
         {
-            if(this == update)
+            if(Equals(update))
             {
                 UpdateData(update as Product);
 

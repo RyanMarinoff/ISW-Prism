@@ -20,103 +20,96 @@
 
 using System;
 
-namespace ISW.Model
+namespace ISW.Models
 {
-    class OptionCategory
+    class Vendor
     {
-        // ***************
-        // * Constructor *
-        // ***************
-
-        public OptionCategory(int id)
+        // all vendors must contain an id, which cannot change.
+        public Vendor(int id)
         {
             _id = id;
         }
 
-        // **********
-        // * Fields *
-        // **********
-
-            // Option Category ID [int] id
+        // Vendor ID [int] vendor_id
         private int _id;
         public int ID
         {
             get { return _id; }
         }
-
-            // Option Category Description [string] optioncategoriesdesc
-        private string _description;
-        public string Description
+        // Name of Vendor [string] vendor_title
+        private string _title;
+        public string Title
         {
-            get { return _description; }
-            set { _description = value; }
+            get { return _title; }
+            set { _title = value; }
         }
 
-        // *************
-        // * Overloads *
-        // *************
+        // PO Template [string] vendor_po_template
+        private string _poTemplate;
+        public string PoTemplate
+        {
+            get { return _poTemplate; }
+            set { _poTemplate = value; }
+        }
 
-            // ToString
+        // Overloads
         public override string ToString()
         {
-            return "ID: " + _id + " - " + _description;
+            return "ID: " + _id + " - " + _title;
         }
 
-            // GetHashCode
         public override int GetHashCode()
         {
             return _id.GetHashCode();
         }
 
-            // Equals
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
                 return false;
-            return Equals(obj as OptionCategory);
+            return Equals(obj as Vendor);
         }
 
-        public bool Equals(OptionCategory other)
+        public bool Equals(Vendor other)
         {
-            if (other == default(OptionCategory))
+            if (other == default(Vendor))
                 return false;
             return Equals(other.ID);
         }
 
-        public bool Equals(int other)
+        public bool Equals(int otherID)
         {
-            return _id.Equals(other);
+            return _id.Equals(otherID);
         }
 
-            // Comparison Operator
-        //public static bool operator ==(OptionCategory a, OptionCategory b)
+        //public static bool operator ==(Vendor a, Vendor b)
         //{
         //    if (ReferenceEquals(a, b))
         //        return true;
         //    return a.Equals(b);
         //}
 
-        //public static bool operator !=(OptionCategory a, OptionCategory b)
+        //public static bool operator !=(Vendor a, Vendor b)
         //{
         //    return !(a == b);
         //}
 
-        //public static bool operator ==(OptionCategory a, int b)
+        //public static bool operator ==(Vendor a, int b)
         //{
         //    return a.ID == b;
         //}
 
-        //public static bool operator !=(OptionCategory a, int b)
+        //public static bool operator !=(Vendor a, int b)
         //{
         //    return !(a == b);
         //}
 
-        //public static bool operator ==(int a, OptionCategory b)
+        //public static bool operator ==(int a, Vendor b)
         //{
         //    return b == a;
         //}
 
-        //public static bool operator !=(int a, OptionCategory b)
+        //public static bool operator !=(int a, Vendor b)
         //{
         //    return !(a == b);
         //}

@@ -20,23 +20,31 @@
 
 using System;
 
-namespace ISW.Model
+namespace ISW.Models
 {
-    class Option
+    class OptionCategory
     {
-        public Option(int id)
+        // ***************
+        // * Constructor *
+        // ***************
+
+        public OptionCategory(int id)
         {
             _id = id;
         }
 
-        // Option ID [int] id
+        // **********
+        // * Fields *
+        // **********
+
+            // Option Category ID [int] id
         private int _id;
         public int ID
         {
             get { return _id; }
         }
 
-        // Option Description [string] optionsdesc
+            // Option Category Description [string] optioncategoriesdesc
         private string _description;
         public string Description
         {
@@ -44,86 +52,73 @@ namespace ISW.Model
             set { _description = value; }
         }
 
-        // Display Order [int] arrangeoptionsby
-        private int? _arrangeOptionsBy;
-        public int? ArrangeOptionsBy
-        {
-            get { return _arrangeOptionsBy; }
-            set { _arrangeOptionsBy = value; }
-        }
+        // *************
+        // * Overloads *
+        // *************
 
-        // Option Category ID [OptionCategory] optioncatid
-        private OptionCategory _optionCategory;
-        public OptionCategory Category
-        {
-            get { return _optionCategory; }
-            set { _optionCategory = value; }
-        }
-
-        // Overloads
+            // ToString
         public override string ToString()
         {
             return "ID: " + _id + " - " + _description;
         }
 
+            // GetHashCode
         public override int GetHashCode()
         {
             return _id.GetHashCode();
         }
 
+            // Equals
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
                 return false;
-            return Equals(obj as Option);
+            return Equals(obj as OptionCategory);
         }
 
-        public bool Equals(Option other)
+        public bool Equals(OptionCategory other)
         {
-            if (other == default(Option))
+            if (other == default(OptionCategory))
                 return false;
             return Equals(other.ID);
         }
 
-        public bool Equals(int otherID)
+        public bool Equals(int other)
         {
-            return _id.Equals(otherID);
+            return _id.Equals(other);
         }
 
-        //public static bool operator ==(Option a, Option b)
+            // Comparison Operator
+        //public static bool operator ==(OptionCategory a, OptionCategory b)
         //{
         //    if (ReferenceEquals(a, b))
         //        return true;
         //    return a.Equals(b);
         //}
 
-        //public static bool operator !=(Option a, Option b)
+        //public static bool operator !=(OptionCategory a, OptionCategory b)
         //{
         //    return !(a == b);
         //}
 
-        //public static bool operator ==(Option a, int b)
+        //public static bool operator ==(OptionCategory a, int b)
         //{
         //    return a.ID == b;
         //}
 
-        //public static bool operator !=(Option a, int b)
+        //public static bool operator !=(OptionCategory a, int b)
         //{
         //    return !(a == b);
         //}
 
-        //public static bool operator ==(int a, Option b)
+        //public static bool operator ==(int a, OptionCategory b)
         //{
         //    return b == a;
         //}
-        //public static bool operator !=(int a, Option b)
+
+        //public static bool operator !=(int a, OptionCategory b)
         //{
         //    return !(a == b);
         //}
-
-        internal bool UpdateData(Option option)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

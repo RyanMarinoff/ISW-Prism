@@ -20,42 +20,50 @@
 
 using System;
 
-namespace ISW.Model
+namespace ISW.Models
 {
-    class Vendor
+    class Option
     {
-        // all vendors must contain an id, which cannot change.
-        public Vendor(int id)
+        public Option(int id)
         {
             _id = id;
         }
 
-        // Vendor ID [int] vendor_id
+        // Option ID [int] id
         private int _id;
         public int ID
         {
             get { return _id; }
         }
-        // Name of Vendor [string] vendor_title
-        private string _title;
-        public string Title
+
+        // Option Description [string] optionsdesc
+        private string _description;
+        public string Description
         {
-            get { return _title; }
-            set { _title = value; }
+            get { return _description; }
+            set { _description = value; }
         }
 
-        // PO Template [string] vendor_po_template
-        private string _poTemplate;
-        public string PoTemplate
+        // Display Order [int] arrangeoptionsby
+        private int? _arrangeOptionsBy;
+        public int? ArrangeOptionsBy
         {
-            get { return _poTemplate; }
-            set { _poTemplate = value; }
+            get { return _arrangeOptionsBy; }
+            set { _arrangeOptionsBy = value; }
+        }
+
+        // Option Category ID [OptionCategory] optioncatid
+        private OptionCategory _optionCategory;
+        public OptionCategory Category
+        {
+            get { return _optionCategory; }
+            set { _optionCategory = value; }
         }
 
         // Overloads
         public override string ToString()
         {
-            return "ID: " + _id + " - " + _title;
+            return "ID: " + _id + " - " + _description;
         }
 
         public override int GetHashCode()
@@ -67,12 +75,12 @@ namespace ISW.Model
         {
             if (obj == null || GetType() != obj.GetType())
                 return false;
-            return Equals(obj as Vendor);
+            return Equals(obj as Option);
         }
 
-        public bool Equals(Vendor other)
+        public bool Equals(Option other)
         {
-            if (other == default(Vendor))
+            if (other == default(Option))
                 return false;
             return Equals(other.ID);
         }
@@ -82,36 +90,40 @@ namespace ISW.Model
             return _id.Equals(otherID);
         }
 
-        //public static bool operator ==(Vendor a, Vendor b)
+        //public static bool operator ==(Option a, Option b)
         //{
         //    if (ReferenceEquals(a, b))
         //        return true;
         //    return a.Equals(b);
         //}
 
-        //public static bool operator !=(Vendor a, Vendor b)
+        //public static bool operator !=(Option a, Option b)
         //{
         //    return !(a == b);
         //}
 
-        //public static bool operator ==(Vendor a, int b)
+        //public static bool operator ==(Option a, int b)
         //{
         //    return a.ID == b;
         //}
 
-        //public static bool operator !=(Vendor a, int b)
+        //public static bool operator !=(Option a, int b)
         //{
         //    return !(a == b);
         //}
 
-        //public static bool operator ==(int a, Vendor b)
+        //public static bool operator ==(int a, Option b)
         //{
         //    return b == a;
         //}
-
-        //public static bool operator !=(int a, Vendor b)
+        //public static bool operator !=(int a, Option b)
         //{
         //    return !(a == b);
         //}
+
+        internal bool UpdateData(Option option)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

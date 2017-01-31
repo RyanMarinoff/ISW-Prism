@@ -19,42 +19,48 @@
  **************************************************************************/
 
 using ISW.IoC;
-using ISW.ViewModel;
+using ISW.Models;
+using Prism.Mvvm;
+using System.Collections.ObjectModel;
 
-namespace ISW
+namespace ISW.ViewModels
 {
-    class MainWindowViewModel : BindableBase
+    class TestViewModel : BindableBase
     {
-        public MainWindowViewModel()
+        public TestViewModel()
         {
-            NavCommand = new MyICommand<string>(OnNav);
+            LoadProducts();
         }
 
-        private ProductViewModel productViewModel = new ProductViewModel();
+        public ObservableCollection<ParentProduct> Product5 { get; set; }
 
-        private TestViewModel testViewModel = new TestViewModel();
-
-        private BindableBase _CurrentViewModel;
-
-        public BindableBase CurrentViewModel
+        public void LoadProducts()
         {
-            get { return _CurrentViewModel; }
-            set { SetProperty(ref _CurrentViewModel, value); }
-        }
+            ObservableCollection<ParentProduct> products = new ObservableCollection<ParentProduct>(IDataLoader.Products);
 
-        public MyICommand<string> NavCommand { get; private set; }
+            Product5 = products;
 
-        private void OnNav(string destination)
-        {
-            switch (destination)
+            for(int i = 0; i < Product5.Count; i++)
             {
-                case "test":
-                    CurrentViewModel = testViewModel;
-                    break;
-                case "product_list":
-                default:
-                    CurrentViewModel = productViewModel;
-                    break;
+                if(Product5[i].GetInventoryCount < 5 || Product5[i].IsHidden)
+                {
+                    Product5.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
+
+        private ParentProduct _selectedProduct;
+
+        public ParentProduct SelectedProduct
+        {
+            get
+            {
+                return _selectedProduct;
+            }
+            set
+            {
+                _selectedProduct = value;
             }
         }
     }

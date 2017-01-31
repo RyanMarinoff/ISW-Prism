@@ -18,49 +18,42 @@
  *                                                                        *
  **************************************************************************/
 
-using ISW.IoC;
-using ISW.Model;
+using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Events;
+
+
+using ISW.Models;
 using System.Collections.ObjectModel;
+using ISW.IoC;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace ISW.ViewModel
+namespace ISW.ViewModels
 {
-    class TestViewModel : BindableBase
+    internal class ProductList : BindableBase
     {
-        public TestViewModel()
+        private readonly List<ParentProduct> _products = new List<ParentProduct>(IDataLoader.Products);
+
+        public IReadOnlyCollection<ProductViewModel> TheCollection => _products.Select(x => new ProductViewModel(x)).ToList();
+    }
+
+    class ProductViewModel : BindableBase
+    {
+        public ProductViewModel(ParentProduct product)
         {
-            LoadProducts();
+            _product = product;
+            VerifyCommand = new DelegateCommand(() =>
+            {
+
+            }, () => !string.IsNullOrWhiteSpace(ID) && !string.IsNullOrWhiteSpace(Name));
         }
 
-        public ObservableCollection<ParentProduct> Product5 { get; set; }
+        public string ID => _product.ID;
+        public string Name => _product.Name;
 
-        public void LoadProducts()
-        {
-            ObservableCollection<ParentProduct> products = new ObservableCollection<ParentProduct>(IDataLoader.Products);
+        public DelegateCommand VerifyCommand { get; }
 
-            Product5 = products;
-
-            for(int i = 0; i < Product5.Count; i++)
-            {
-                if(Product5[i].GetInventoryCount < 5 || Product5[i].IsHidden)
-                {
-                    Product5.RemoveAt(i);
-                    i--;
-                }
-            }
-        }
-
-        private ParentProduct _selectedProduct;
-
-        public ParentProduct SelectedProduct
-        {
-            get
-            {
-                return _selectedProduct;
-            }
-            set
-            {
-                _selectedProduct = value;
-            }
-        }
+        private readonly ParentProduct _product;
     }
 }

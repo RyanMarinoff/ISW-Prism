@@ -1,4 +1,4 @@
-/**************************************************************************
+﻿/**************************************************************************
  *                                                                        *
  *  ISW - Internet Sales Work    Internet task assistance application.    *
  *  Copyright (C) 2016  Ryan Marinoff                                     *
@@ -17,19 +17,29 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  *                                                                        *
  **************************************************************************/
+ 
+using Prism.Mvvm;
+using Prism.Commands;
+using Prism.Regions;
 
-using System.Windows;
-
-namespace ISW
+namespace ISW.ViewModels
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    class MainWindowViewModel : BindableBase
     {
-        public MainWindow()
+        private readonly IRegionManager _regionManager;
+
+        public DelegateCommand<string> NavigateCommand { get; set; }
+
+        public MainWindowViewModel(IRegionManager regionManager)
         {
-            InitializeComponent();
+            _regionManager = regionManager;
+
+            NavigateCommand = new DelegateCommand<string>(Navigate);
+        }
+
+        private void Navigate(string uri)
+        {
+            _regionManager.RequestNavigate("ContentRegion", uri);
         }
     }
 }

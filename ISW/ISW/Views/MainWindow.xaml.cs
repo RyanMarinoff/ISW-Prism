@@ -1,4 +1,4 @@
-﻿/**************************************************************************
+/**************************************************************************
  *                                                                        *
  *  ISW - Internet Sales Work    Internet task assistance application.    *
  *  Copyright (C) 2016  Ryan Marinoff                                     *
@@ -18,41 +18,18 @@
  *                                                                        *
  **************************************************************************/
 
-using System.Collections.ObjectModel;
+using System.Windows;
 
-using ISW.Model;
-using ISW.IoC;
-
-namespace ISW.ViewModel
+namespace ISW.Views
 {
-    class ProductViewModel : BindableBase
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
     {
-        public ProductViewModel()
+        public MainWindow()
         {
-            LoadProducts();
-        }
-
-        public ObservableCollection<ParentProduct> Products { get; set; }
-
-        public void LoadProducts()
-        {
-            ObservableCollection<ParentProduct> products = new ObservableCollection<ParentProduct>(IDataLoader.Products);
-
-            Products = products;
-        }
-
-        private ParentProduct _selectedProduct;
-
-        public ParentProduct SelectedProduct
-        {
-            get
-            {
-                return _selectedProduct;
-            }
-            set
-            {
-                _selectedProduct = value;
-            }
+            InitializeComponent();
         }
     }
 }

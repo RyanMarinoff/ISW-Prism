@@ -20,7 +20,7 @@
 
 using System;
 
-namespace ISW.Model
+namespace ISW.Models
 {
     class Category
     {

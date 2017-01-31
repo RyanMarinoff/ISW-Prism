@@ -23,7 +23,7 @@ using System.Linq;
 using System.IO;
 using System;
 
-using ISW.Model;
+using ISW.Models;
 
 namespace ISW.IoC
 {
