@@ -24,6 +24,8 @@ using System.IO;
 using System;
 
 using ISW.Models;
+using System.Net;
+using System.Windows;
 
 namespace ISW.IoC
 {
@@ -769,6 +771,53 @@ namespace ISW.IoC
             streamReader.Close();
 
             return items;
+        }
+
+        // TODO: This function is temporary. There are too much user interface within as well as writing
+        // data to disk. Refactor or remove before completion.
+        public static bool ProductOverCount(int moreThan, string path)
+        {
+            string output = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><title>Output</title></head><body><table>";
+            int countOut = 0;
+            foreach(ParentProduct product in IData.Products)
+            {
+                
+                if(product.GetInventoryCount > moreThan)
+                {
+                    string baseurl = "https://www.reyers.com/v/vspfiles/photos/" + product.ID + "-";
+                    // Three is the limit for the number of pictures
+                    for(int i = 1; i <= 3; i++)
+                    {
+                        var imageurl = baseurl + i + ".jpg";
+                        HttpWebRequest req = (HttpWebRequest)WebRequest.Create(imageurl);
+                        req.AllowAutoRedirect = false;
+                        req.Timeout = 1000;
+                        try
+                        {
+                            var response = (HttpWebResponse)req.GetResponse();
+                            MessageBox.Show(product.ID + " image " + i + " is " + response.StatusDescription);
+                        }
+                        catch(WebException)
+                        {
+                            //MessageBox.Show(we.ToString());
+                            output += "<tr><td><a href=\"https://www.reyers.com/admin/AdminDetails_Generic.asp?table=Products_Joined&Page=1&ID=" + product.ID + "\" target=\"_blank\">" + product.Name + "</a></td></tr><td>";
+                            countOut++;
+                            break;
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.ToString());
+                        }
+                    }
+                }
+            }
+
+            output += "</table></body></html>\n";
+            var streamWriter = new StreamWriter(path + @"\ProductOverCount.html");
+            streamWriter.Write(output);
+            streamWriter.Close();
+            MessageBox.Show(countOut + " needs done.");
+            return true;
         }
     }
 }

@@ -16,6 +16,7 @@
         <StackPanel Orientation="Horizontal">
             <Button Content="ProductView" Margin="5" Command="{Binding NavigateCommand}" CommandParameter="ProductView"/>
             <Button Content="TestView" Margin="5" Command="{Binding NavigateCommand}" CommandParameter="TestView"/>
+            <Button Content="Out5" Margin="5" Click="Button_Click" />
         </StackPanel>
 
         <ContentControl Grid.Row="1" prism:RegionManager.RegionName="ContentRegion"/>
