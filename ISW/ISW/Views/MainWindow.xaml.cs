@@ -35,12 +35,14 @@ namespace ISW.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             WarningBox wb = new WarningBox();
-            wb.Show();
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
-            dialog.ShowDialog();
-            IoC.IDataLoader.ProductOverCount(5, dialog.SelectedPath);
-            wb.Close();
-            MessageBox.Show("All Product Over 5 Output to " + dialog.SelectedPath);
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                wb.Show();
+                IoC.IDataLoader.ProductOverCount(5, dialog.SelectedPath);
+                wb.Close();
+                MessageBox.Show("All Product Over 5 Output to " + dialog.SelectedPath);
+            }
         }
     }
 }

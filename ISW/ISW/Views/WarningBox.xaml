@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ISW.Views"
         mc:Ignorable="d"
-        Title="WarningBox" Height="179.359" Width="300" WindowStyle="None" ResizeMode="NoResize" Cursor="None">
+        Title="WarningBox" Height="179.359" Width="300" WindowStyle="None" ResizeMode="NoResize" Cursor="None" WindowStartupLocation="CenterOwner">
     <Grid>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Text="This will take a while. Please wait till this window closes before continuing..." FontSize="20" FontWeight="Bold"/>
 

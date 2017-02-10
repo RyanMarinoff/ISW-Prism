@@ -28,32 +28,12 @@ using System.Collections.ObjectModel;
 using ISW.IoC;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel;
 
 namespace ISW.ViewModels
 {
-    internal class ProductList : BindableBase
+    class ProductViewModel : INotifyPropertyChanged
     {
-        private readonly List<ParentProduct> _products = new List<ParentProduct>(IDataLoader.Products);
-
-        public IReadOnlyCollection<ProductViewModel> TheCollection => _products.Select(x => new ProductViewModel(x)).ToList();
-    }
-
-    class ProductViewModel : BindableBase
-    {
-        public ProductViewModel(ParentProduct product)
-        {
-            _product = product;
-            VerifyCommand = new DelegateCommand(() =>
-            {
-
-            }, () => !string.IsNullOrWhiteSpace(ID) && !string.IsNullOrWhiteSpace(Name));
-        }
-
-        public string ID => _product.ID;
-        public string Name => _product.Name;
-
-        public DelegateCommand VerifyCommand { get; }
-
-        private readonly ParentProduct _product;
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
