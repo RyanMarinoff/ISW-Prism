@@ -36,12 +36,26 @@ namespace ISW.Views
         {
             WarningBox wb = new WarningBox();
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.Description = "Select where you want to save the files to:";
+
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                bool success;
                 wb.Show();
-                IoC.IDataLoader.ProductOverCount(5, dialog.SelectedPath);
+                //IoC.IDataLoader.ProductOverCount(5, dialog.SelectedPath);
+                success = IoC.IDataLoader.ProductWithinCategory(50, 260, 541, dialog.SelectedPath);
+                if (success)
+                    MessageBox.Show("Mens Sandals Output within " + dialog.SelectedPath);
+                else
+                    MessageBox.Show("Problem with mens sandals");
+                success = IoC.IDataLoader.ProductWithinCategory(29, 299, 541, dialog.SelectedPath);
+                if (success)
+                    MessageBox.Show("Womens Sandals Output within " + dialog.SelectedPath);
+                else
+                    MessageBox.Show("Problem with womens sandals");
                 wb.Close();
-                MessageBox.Show("All Product Over 5 Output to " + dialog.SelectedPath);
+
+                MessageBox.Show("All Product sandals Output to " + dialog.SelectedPath);
             }
         }
     }

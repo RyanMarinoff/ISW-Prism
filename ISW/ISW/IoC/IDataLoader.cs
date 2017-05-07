@@ -819,5 +819,79 @@ namespace ISW.IoC
             MessageBox.Show(countOut + " needs done.");
             return true;
         }
+
+        public static bool ProductWithinCategory(int withinID, int notWithinID, int addID, string path)
+        {
+            string output = "productcode|categoryids\n";
+            string testOutput = "Product Name : Is Listed \n";
+
+            bool addToList = false;
+            int sandalCount = 0;
+            int birkCount = 0;
+            foreach(ParentProduct product in IData.Products)
+            {
+                testOutput += product.Name + " : ";
+
+                foreach (Category category in product.Categories)
+                {
+                    if (category.ID == withinID & !addToList)
+                    {
+                        sandalCount++;
+                        addToList = true;
+                    }
+                }
+
+                if (addToList)
+                {
+                    foreach (Category category in product.Categories)
+                    {
+                        if (category.ID == notWithinID)
+                        {
+                            sandalCount--;
+                            birkCount++;
+                            addToList = false;
+                        }
+                    }
+                }
+
+                if (addToList)
+                {
+                    output += "\"" + product.ID + "\",\"";
+
+                    foreach(Category category in product.Categories)
+                    {
+                        output += category.ID + ",";
+                    }
+
+                    output += addID + "\"\n";
+
+                    foreach(ChildProduct child in product.ChildProducts)
+                    {
+                        output += "\"" + child.ID + "\",\"";
+
+                        foreach(Category childCategory in child.Categories)
+                        {
+                            output += childCategory.ID + ",";
+                        }
+
+                        output += addID + "\"\n";
+                    }
+                }
+                testOutput += addToList + "\n";
+                addToList = false;
+            }
+
+
+            var streamWriter = new StreamWriter(path + @"\" + withinID + "output.txt");
+            streamWriter.Write(output);
+            streamWriter.Close();
+
+            streamWriter = new StreamWriter(path += @"\" + withinID + "testOutput.txt");
+            streamWriter.Write(testOutput);
+            streamWriter.Close();
+
+            MessageBox.Show("Count: " + sandalCount + "\nBirkenstock: " + birkCount);
+            return false;
+        }
     }
 }

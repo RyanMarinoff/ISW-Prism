@@ -31,7 +31,20 @@ namespace ISW.Models
 
         public ChildProduct(ParentProduct Parent) : base(Parent.ID)
         {
-            UpdateData(Parent as Product);
+            Categories = Parent.Categories;
+            Options = Parent.Options;
+            Name = Parent.Name;
+            DisplayBeginDate = Parent.DisplayBeginDate;
+            Taxable = Parent.Taxable;
+            Hidden = Parent.Hidden;
+            ShortName = Parent.ShortName;
+            ShortDescription = Parent.ShortDescription;
+            MetaTagTitle = Parent.MetaTagTitle;
+            MetaTagDescription = Parent.MetaTagDescription;
+            PhotoAltText = Parent.PhotoAltText;
+            SaleText = Parent.SaleText;
+            ItemVendor = Parent.ItemVendor;
+            ProductPrice = Parent.ProductPrice;
         }
 
         // public ChildProduct(string id) : base(id) { }
